@@ -23,31 +23,30 @@ module.exports = passport => {
       vartotojoSecret: configAuth.clientSecret,
       callbackURL: configAuth.callbackURL
     })
-  );
+  ),
+    (token, refreshToken, profile, done) => {
+      process.nextTick(() => {
+        Vartotojas.findOne({ 'facebook.id': profile.id }, (err, vartotojas) => {
+          if (err) return done(err);
 
-  (token, refreshToken, profile, done) => {
-    process.nextTick(() => {
-      Vartotojas.findOne({ 'facebook.id': profile.id }, (err, vartotojas) => {
-        if (err) return done(err);
+          if (vartotojas) {
+            return done(null, vartotojas);
+          } else {
+            var naujasVartotojas = new Vartotojas();
 
-        if (vartotojas) {
-          return done(null, vartotojas);
-        } else {
-          var naujasVartotojas = new Vartotojas();
+            naujasVartotojas.facebookId = profile.id;
+            naujasVartotojas.token = token;
+            naujasVartotojas.vardas =
+              profile.name.givenName + ' ' + profile.name.familyName;
+            naujasVartotojas.email = profile.emails[0].value;
 
-          naujasVartotojas.facebookId = profile.id;
-          naujasVartotojas.token = token;
-          naujasVartotojas.vardas =
-            profile.name.givenName + ' ' + profile.name.familyName;
-          naujasVartotojas.email = profile.emails[0].value;
+            newUser.save(err => {
+              if (err) throw err;
 
-          newUser.save(err => {
-            if (err) throw err;
-
-            return done(null, naujasVartotojas);
-          });
-        }
+              return done(null, naujasVartotojas);
+            });
+          }
+        });
       });
-    });
-  };
+    };
 };
