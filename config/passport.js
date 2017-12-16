@@ -1,5 +1,5 @@
-const LocalStrategy = require('passport-local').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
+const LocalStrategy = require('passport-local');
+const FacebookStrategy = require('passport-facebook');
 
 // load up the user model
 const Vartotojas = require('../models/Vartotojas');
