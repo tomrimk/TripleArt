@@ -19,9 +19,9 @@ module.exports = passport => {
 
   passport.use(
     new FacebookStrategy({
-      vartotojoID: configAuth.facebookAuth.clientID,
-      vartotojoSecret: configAuth.facebookAuth.clientSecret,
-      callbackURL: configAuth.facebookAuth.callbackURL
+      vartotojoID: configAuth.clientID,
+      vartotojoSecret: configAuth.clientSecret,
+      callbackURL: configAuth.callbackURL
     })
   );
 
