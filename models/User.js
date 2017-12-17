@@ -7,7 +7,8 @@ const userSchema = new Schema({
     token: String,
     email: String,
     name: String,
-    username: String
+    username: String,
+    points: { type: Number, default: 0 }
   }
 });
 

@@ -76,3 +76,10 @@ ul p {
   margin-top: 150px;
   margin-left: 25px;
 }
+
+.btn-block {
+  width: 250px !important;
+  display: block;
+  margin: 0 auto;
+  margin-top: 50px;
+}

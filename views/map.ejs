@@ -15,29 +15,19 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-4 col-sm-6">
-        <img class="center-block img-responsive person" src="images/person.png" alt="person">
-        <br>
-        <hr>
-        <ul>
-          <li>
-            <img src="images/oras.png" alt="Oro taškai">
-            <p>12</p>
-          </li>
-          <li>
-            <img src="images/žemė.png" alt="Žemės taškai">
-            <p>3</p>
-          </li>
-          <li>
-            <img src="images/vanduo.png" alt="Vandens taškai">
-            <p>4</p>
-          </li>
-          <li>
-            <img src="images/ugnis.png" alt="Ugnies taškai">
-            <p>5</p>
-          </li>
-        </ul>
-        <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span>Facebook</a>
-        <h3 id="statusMessage"></h3>
+        <% if(!user) { %>
+          <h2 class="text-center">TripleART komandos Demo</h2>
+          <a href="/auth/facebook" class="btn btn-primary btn-block"><span class="fa fa-facebook"></span> <strong>Tęsti su Facebook</strong></a>
+        <% } %>        
+        <div>
+          <% if(user) { %>
+            <h3 class="text-center">Sveiki, <%= user.facebook.name %></h3>
+            <h3 class="text-center">Turimi taškai: <%= user.facebook.points %></h3>
+            <a href="/profile"><h4>Profilis</h4></a>
+            <a href="/logout"><h4>Atsijungti</h4></a>
+            <h3 id="statusMessage"></h3>
+          <% } %>
+        </div>
       </div>
       <div id="status">
       </div>

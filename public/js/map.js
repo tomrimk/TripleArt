@@ -1,3 +1,5 @@
+const User = require('/models/User.js');
+
 function initMap() {
   var styledMapType = new google.maps.StyledMapType(
     [
@@ -14,7 +16,7 @@ function initMap() {
   );
 
   // 54.6814874, 25.2805559
-  var gediminoPilis = { lat: 54.6815164, lng: 25.280769799999998 };
+  var gediminoPilis = { lat: 54.686757, lng: 25.29069 };
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
     center: gediminoPilis,
@@ -109,8 +111,8 @@ function checkIn(myLat, myLong) {
 
     //Gedimino pilies koordinatės
     // 54.6814874, 25.2805559
-    var objectLatitude = 54.6814874;
-    var objectLongitude = 25.2805559;
+    var objectLatitude = 54.686757;
+    var objectLongitude = 25.29069;
 
     var distance = measure(
       lattitude,
@@ -122,10 +124,8 @@ function checkIn(myLat, myLong) {
     if (distance >= 100) {
       status.innerHTML = 'Jūs nesate arti objekto';
     } else {
-      status.innerHTML =
-        'Sveikiname! Jūs įgyjote 3 ugnies ir 4 vandens elementus!';
+      status.innerHTML = 'Sveikiname! Jūs įgijote 5 taškus!';
     }
-
     console.log(distance);
   }
 
