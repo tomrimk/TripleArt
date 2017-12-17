@@ -1,10 +1,9 @@
-const LocalStrategy = require('passport-local');
-const FacebookStrategy = require('passport-facebook');
+const LocalStrategy = require('passport-local').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
+var keys = require('../keys/keys');
 
 // load up the user model
 const Vartotojas = require('../models/Vartotojas');
-
-const configAuth = require('./auth');
 
 module.exports = passport => {
   passport.serializeUser(function(vartotojas, done) {
@@ -19,9 +18,9 @@ module.exports = passport => {
 
   passport.use(
     new FacebookStrategy({
-      vartotojoID: configAuth.clientID,
-      vartotojoSecret: configAuth.clientSecret,
-      callbackURL: configAuth.callbackURL
+      vartotojoID: keys.facebookAppId,
+      vartotojoSecret: keys.facebookAppSecret,
+      callbackURL: '/auth/facebook/callback'
     })
   ),
     (token, refreshToken, profile, done) => {

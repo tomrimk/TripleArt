@@ -1,27 +1,31 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-var passport = require('passport');
-const keys = require('./keys/prod');
+const passport = require('passport');
+const cookieSession = require('cookie-session');
+const keys = require('./keys/keys');
+const bodyParser = require('body-parser');
 
 mongoose.connect(keys.mongoDbUri);
 
 require('./config/passport')(passport);
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
 
-app.configure(function() {
-  // set up our express application
-  app.use(express.logger('dev')); // log every request to the console
-  app.use(express.cookieParser()); // read cookies (needed for auth)
-  app.use(express.bodyParser()); // get information from html forms
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [keys.cookieKey]
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
-  app.set('view engine', 'ejs'); // set up ejs for templating
+// set up our express application
+app.use(express.cookieParser()); // read cookies (needed for auth)
+app.use(express.bodyParser()); // get information from html forms
 
-  // required for passport
-  app.use(express.session({ secret: 'tripleartslovesakimirka' })); // session secret
-  app.use(passport.initialize());
-  app.use(passport.session()); // persistent login sessions
-});
+app.set('view engine', 'ejs'); // set up ejs for templating
 
 require('./routes/index.js')(app, passport);
 
