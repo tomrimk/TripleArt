@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const keys = require('./keys/keys');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 mongoose.connect(keys.mongoDbUri);
@@ -22,8 +23,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // set up our express application
-app.use(express.cookieParser()); // read cookies (needed for auth)
-app.use(express.bodyParser()); // get information from html forms
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser()); // get information from html forms
 
 app.set('view engine', 'ejs'); // set up ejs for templating
 
