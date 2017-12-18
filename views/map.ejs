@@ -6,8 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/map.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
   <title>Žemėlapis</title>
 </head>
 
@@ -19,12 +22,16 @@
           <h2 class="text-center">TripleART komandos Demo</h2>
           <a href="/auth/facebook" class="btn btn-primary btn-block"><span class="fa fa-facebook"></span> <strong>Tęsti su Facebook</strong></a>
         <% } %>        
-        <div>
+        <div id="userSection">
           <% if(user) { %>
             <h3 class="text-center">Sveiki, <%= user.facebook.name %></h3>
-            <h3 class="text-center">Turimi taškai: <%= user.facebook.points %></h3>
-            <a href="/profile"><h4>Profilis</h4></a>
-            <a href="/logout"><h4>Atsijungti</h4></a>
+            <h3 class="text-center">Turimi taškai: <%= user.points %></h3>
+            <div class="centered">
+              <a href="/profile"><h3>Profilis</h3></a>
+              <a id="myBtn"><h3>Pridėti objektą</h3></a>
+              <a style="margin-top: 25px;" href="/map"><h3>Peržiūrėti Campaign</h3></a>
+              <a href="/logout"><h3>Atsijungti</h3></a>              
+            </div>
             <h3 id="statusMessage"></h3>
           <% } %>
         </div>
@@ -37,7 +44,50 @@
     </div>
   </div>
 
-  <!-- Replace the value of the key parameter with your own API key. -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>Naujo objekto pridėjimas</h2>
+      </div>
+      <div class="modal-body">
+        <form action="/" method="POST">
+          <div class="form-group">
+            <input class="form-control" type="text" name="name" placeholder="Objekto Pavadinimas" required>
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="number" step=0.000001 name="lattitude" placeholder="Objekto Lattitude" required>
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="number" step=0.000001 name="longitude" placeholder="Objekto Longitude" required>
+          </div>
+          <div class="form-group">
+            <button style="width: 250px;" class="btn btn-lg btn-primary btn-block center-block">Sukurti</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var modal = document.getElementById('myModal');
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
   <script src="js/map.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQJ2TeX4CKtS00G-PbUMSuKjZ8fc-fyQQ&callback=initMap">
   </script>

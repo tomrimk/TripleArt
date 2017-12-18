@@ -3,5 +3,6 @@ module.exports = {
   facebookAppSecret: process.env.FACEBOOK_APP_SECRET,
   mongoDbUri: process.env.MONGODB_URI,
   callbackURL: process.env.CALLBACK_URL,
-  cookieKey: process.env.COOKIE_KEY
+  cookieKey: process.env.COOKIE_KEY,
+  googleApiKey: process.env.GOOGLE_API_KEY
 };

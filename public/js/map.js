@@ -1,5 +1,3 @@
-const User = require('/models/User.js');
-
 function initMap() {
   var styledMapType = new google.maps.StyledMapType(
     [
@@ -15,9 +13,11 @@ function initMap() {
     { name: 'Styled Map' }
   );
 
+  var markers = [];
+
   // 54.6814874, 25.2805559
   var gediminoPilis = { lat: 54.686757, lng: 25.29069 };
-  var map = new google.maps.Map(document.getElementById('map'), {
+  window.myMap = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
     center: gediminoPilis,
     mapTypeControlOptions: {
@@ -25,11 +25,18 @@ function initMap() {
     }
   });
 
-  map.mapTypes.set('styled_map', styledMapType);
-  map.setMapTypeId('styled_map');
+  myMap.mapTypes.set('styled_map', styledMapType);
+  myMap.setMapTypeId('styled_map');
 
-  map.addListener('click', function(e) {
+  myMap.addListener('click', function(e) {
+    deleteMarkers();
     console.log(e.latLng.lat() + ' ' + e.latLng.lng());
+    var marker = new google.maps.Marker({
+      position: { lat: e.latLng.lat(), lng: e.latLng.lng() },
+      map: myMap
+    });
+
+    markers.push(marker);
     checkIn(e.latLng.lat(), e.latLng.lng());
   });
 
@@ -39,26 +46,15 @@ function initMap() {
     '</div>' +
     '<h3 id="firstHeading" class="firstHeading">Gedimino pilies bokštas</h3>' +
     '<div id="bodyContent">' +
-    '<p><b>Esami elementai:</b></br>' +
-    '<div class="element">' +
-    '<img style="width: 30px; height: 30px;" src="images/oras.png"></img>' +
-    '<p>7</p>' +
-    '</div>' +
-    '<div class="element">' +
-    '<img style="width: 30px; height: 30px;" src="images/žemė.png"></img>' +
-    '<p>2</p>' +
-    '</div>' +
-    '<div class="element">' +
-    '<img style="width: 30px; height: 30px;" src="images/vanduo.png"></img>' +
-    '<p>3</p>' +
-    '</div>' +
-    '<div class="element">' +
-    '<img style="width: 30px; height: 30px;" src="images/ugnis.png"></img>' +
-    '<p>1</p>' +
-    '</div>' +
+    '<p><b>Galimi taškai: 5</b></br>' +
     '<p><a target="_blank" href="https://pamatyklietuvoje.lt/details/gedimino-pilies-bokstas/1480">Sužinoti daugiau</a></p>' +
-    '<button onclick="checkIn()">Atsiimti elementus</button>';
-  '</div>' + '</div>';
+    '<form action="/check?_method=PUT" method="POST">' +
+    '<div class="form-group">' +
+    '<button onclick="checkIn()">Atsiimti elementus</button>' +
+    '</div>' +
+    ' </form>' +
+    '</div>' +
+    '</div>';
 
   var infowindow = new google.maps.InfoWindow({
     content: contentString,
@@ -75,13 +71,32 @@ function initMap() {
 
   var marker = new google.maps.Marker({
     position: gediminoPilis,
-    map: map,
+    map: myMap,
     icon: image
   });
 
   marker.addListener('click', function() {
-    infowindow.open(map, marker);
+    infowindow.open(myMap, marker);
   });
+
+  function setMapOnAll(map) {
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(map);
+    }
+  }
+
+  // Removes the markers from the map, but keeps them in the array.
+  function clearMarkers() {
+    setMapOnAll(null);
+  }
+
+  function clearMarkers() {
+    setMapOnAll(null);
+  }
+  function deleteMarkers() {
+    clearMarkers();
+    markers = [];
+  }
 }
 
 function measure(lat1, lon1, lat2, lon2) {

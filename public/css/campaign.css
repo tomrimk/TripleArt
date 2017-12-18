@@ -1,0 +1,59 @@
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.row {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.container-fluid,
+.map {
+  height: 100%;
+}
+
+div {
+  margin: 0;
+  padding: 0 !important;
+}
+
+#map {
+  height: 50%;
+  width: 100%;
+}
+
+#bodyContent {
+  width: 100%;
+}
+
+.objInfo {
+  margin-top: 25px;
+  padding: 10px !important;
+}
+
+.clientSection {
+  background: rgb(54, 123, 252);
+  color: white;
+}
+
+.clientSection h2 {
+  display: inline-block;
+  margin: 0 24px;
+}
+
+.clientSection h2:nth-child(2) {
+  float: right;
+}
+
+.btn {
+  border: 0 !important;
+  border-radius: 0 !important;
+  margin-left: 10px;
+}
+
+#goBack {
+  margin-left: 10px;
+}

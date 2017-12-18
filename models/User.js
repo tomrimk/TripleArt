@@ -7,9 +7,9 @@ const userSchema = new Schema({
     token: String,
     email: String,
     name: String,
-    username: String,
-    points: { type: Number, default: 0 }
-  }
+    username: String
+  },
+  points: { type: Number, default: 0 }
 });
 
 module.exports = mongoose.model('User', userSchema);
