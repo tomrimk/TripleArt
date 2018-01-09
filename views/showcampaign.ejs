@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/css/allcampaigns.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <title>Žemėlapis</title>
+</head>
+
+<body>
+  <div class="container">
+    
+        <h1>Campaign pavadinimas: <%= campaign.title%></h1>
+        <form action='/campaign/<%= campaign._id%>' method="POST">
+        <div class="col-md-12 col-lg-12 col-sm12">
+          <h2>Pridėti objektą</h2>
+          <!--<div class="form-group center-block">
+            <input class="fullSize" type="text" value="" placeholder="Paieška">
+          </div>-->
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm12">
+          <div class="form-group center-block lattitudeInpt">
+            <input id="lattitude" type="text" name="mapobject[lattitude]" placeholder="Lattitude" required>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm12">
+          <div class="form-group center-block longitudeInpt">
+            <input id="longitude" type="text" name="mapobject[longitude]" placeholder="Longitude" required>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm12">
+          <div class="form-group center-block">
+            <input id="pavadinimas" class="fullSize" type="text" name="mapobject[name]"  placeholder="Objekto pavadinimas" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-lg btn-primary">Pridėti</button>
+        </form>
+        <div class="col-md-12 col-lg-12 col-sm12">
+          <table id="objektai" class="table table-hover">
+          <tr>
+            <th>Nr.</th>
+            <th>Objekto pavadinimas</th>
+            <th>Lattitude</th>
+            <th>Longitude</th>
+            <th>Veiksmai</th>
+          </tr>
+          <% for( var i = 1; i < campaign.mapObject.length+1; i++) { %>
+            <tr>
+              <td><%= i%></td>
+              <td><%= campaign.mapObject[i-1].name%></td>
+              <td><%= campaign.mapObject[i-1].lattitude%></td>
+              <td><%= campaign.mapObject[i-1].longitude%></td>
+              <td>
+                <form action="/campaign/<%= campaign._id %>/<%= campaign.mapObject[i-1]._id %>?_method=DELETE" method="POST">
+                  <input class="btn btn-xs btn-danger" type="submit" value="Delete">
+                </form>
+              </td>
+            </tr>
+          <%}%>
+          </table>
+          <button type="button" class="btn btn-lg btn-success toRight">Kitas žingsnis</button>
+        </div>
+  </div>
+      
+  </body>
+</html>

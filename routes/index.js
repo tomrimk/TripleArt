@@ -1,21 +1,22 @@
 const User = require('../models/User');
 const MapObject = require('../models/MapObject');
+const Campaign = require('../models/Campaign');
 var qr = require('qr-image');
 const mapCreation = require('../config/map');
 
 module.exports = (app, passport) => {
   // ROOT ROUTE
-  app.get('/', function(req, res) {
-    if (req.user) {
-      var qr_svg = qr.image('Vardas: ' + req.user.facebook.name, {
-        type: 'png'
-      });
-      qr_svg.pipe(
-        require('fs').createWriteStream(req.user.facebook.name + '.png')
-      );
-    }
-    res.render('../views/map.ejs', { user: req.user });
-  });
+  // app.get('/', function(req, res) {
+  //   if (req.user) {
+  //     var qr_svg = qr.image('Vardas: ' + req.user.facebook.name, {
+  //       type: 'png'
+  //     });
+  //     qr_svg.pipe(
+  //       require('fs').createWriteStream(req.user.facebook.name + '.png')
+  //     );
+  //   }
+  //   res.render('../views/landing', { user: req.user });
+  // });
 
   // AUTH
   app.get(
@@ -40,8 +41,16 @@ module.exports = (app, passport) => {
 
   // PROFILE
   app.get('/profile', isLoggedIn, function(req, res) {
-    res.render('profile.ejs', {
-      user: req.user
+    Campaign.find({ 'autorius.id': req.user._id }, (err, foundCampaigns) => {
+      if (err) {
+        console.log(err);
+        res.redirect('/');
+      } else {
+        res.render('profile.ejs', {
+          user: req.user,
+          campaigns: foundCampaigns
+        });
+      }
     });
   });
 
@@ -97,6 +106,18 @@ module.exports = (app, passport) => {
           mapobjects: mapObjects,
           user: req.user
         });
+      }
+    });
+  });
+
+  // LANDING PAGE
+  app.get('/', (req, res) => {
+    Campaign.find({}, (err, allCampaigns) => {
+      if (err) {
+        console.log(err);
+        res.redirect('/landing');
+      } else {
+        res.render('landing', { user: req.user, campaigns: allCampaigns });
       }
     });
   });

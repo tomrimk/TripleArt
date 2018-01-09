@@ -1,0 +1,282 @@
+.navbar {
+  border: none !important;
+  border-radius: 0 !important;
+  font-size: 24px !important;
+  background: #236eba !important;
+  margin: 0 !important;
+  height: 200px;
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.noPadding {
+  padding: 0 !important;
+}
+
+.navbar a {
+  color: rgb(44, 44, 44) !important;
+}
+
+.navbar li {
+  margin-top: 12%;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.navbar img {
+  margin-left: 25px;
+  height: 150px;
+}
+
+html,
+body,
+.container-fluid {
+  height: 100% !important;
+  width: 100%;
+  background: #236eba;
+}
+
+#copyright {
+  background: #236eba;
+  color: white;
+  text-align: center;
+}
+
+/* HELLO DIV  */
+
+.helloDiv {
+  padding: 0;
+  height: auto;
+  background: #236eba;
+  color: white;
+}
+
+.helloDiv h1 {
+  margin-left: 25px;
+  font-size: 50px;
+  word-spacing: 15px;
+  line-height: 70px;
+}
+
+.helloDiv button {
+  margin-left: 25px;
+  border: 0;
+  border-radius: 0;
+  margin-top: 20px;
+  background: #ffc121;
+  color: white;
+}
+
+.helloDiv button:hover {
+  background: #e0a819;
+  color: white;
+}
+
+.helloDiv img {
+  float: right;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 50px;
+}
+
+/* END OF HELLO DIV */
+
+/* VALUES ROW */
+
+.valuesRow {
+  background: white;
+}
+
+.valueDiv {
+  display: block;
+  text-align: center;
+  margin-bottom: 50px;
+  height: 138px;
+  border-right: 1px solid #236eba;
+  padding: 0;
+}
+
+.valuesRow img {
+  width: 125px;
+}
+
+.valuesRow h1 {
+  text-align: center;
+  margin-bottom: 45px;
+  margin-top: 45px;
+}
+
+.valuesRow p {
+  width: 400px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* END OF VALUES ROW */
+
+/* DEMO ROW */
+
+.demoRow {
+  height: auto;
+  background: #236eba;
+  text-align: center;
+}
+
+.demoRow h1 {
+  color: white;
+  margin-top: 45px;
+  margin-bottom: 45px;
+}
+
+.demoRow .well {
+  width: 300px;
+  height: auto;
+  display: inline-block;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  padding: 15px;
+  border-radius: 0;
+  text-align: left;
+}
+
+.demoRow button {
+  border-radius: 0;
+  width: 100%;
+}
+
+.demoRow img {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* END OF DEMO ROW */
+
+/* ROADMAP ROW */
+
+.roadMapDiv {
+  height: auto;
+  background: white;
+  text-align: center;
+}
+
+.roadMapDiv h1 {
+  margin-top: 45px;
+  margin-bottom: 45px;
+}
+
+.roadMapDiv img {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 45px;
+}
+
+/* END OF ROADMAP ROW */
+
+/* TEAMINFO ROW */
+
+.teamInfo img {
+  width: 200px;
+  border-radius: 50%;
+}
+
+.teamInfo {
+  text-align: center;
+  color: white;
+  background: #ffc121;
+}
+
+.teamInfo h1 {
+  margin-top: 45px;
+  margin-bottom: 45px;
+}
+
+.teamInfo p {
+  width: 250px;
+  display: block;
+  margin: 0 auto;
+}
+
+.teamInfo .person {
+  text-align: center;
+  display: inline-block;
+  text-align: center;
+  margin-left: 25px;
+  min-height: 366px !important;
+  vertical-align: bottom;
+}
+
+/* END OF TEAMINFO ROW */
+
+/* FOOTER ROW */
+
+/* .footerRow {
+  height: auto;
+  background: #236eba;
+  color: white;
+} */
+
+.footerRow img {
+  width: 150px;
+  height: auto;
+}
+
+/* .footerRow p {
+  max-width: 150px;
+  margin: 0;
+  text-align: center;
+  vertical-align: bottom;
+} */
+
+.footerRow {
+  width: 100%;
+  text-align: center;
+  margin-top: 45px;
+  color: white;
+}
+
+.footerRow div {
+  display: inline-block;
+}
+
+.footerRow ul {
+  display: inline-block;
+  vertical-align: middle;
+  list-style-type: none;
+  color: white;
+  text-align: left;
+}
+
+.footerRow ul li {
+  line-height: 25px;
+}
+
+.footerRow h3 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.footerRow a {
+  color: white;
+  display: block;
+}
+
+.f2 {
+  text-align: left;
+}
+
+.f3 {
+  text-align: left;
+  line-height: 25px;
+}
+
+.footerRow i {
+  font-size: 25px;
+  margin-right: 10px;
+}
+
+/* END OF FOOTER ROW */

@@ -1,0 +1,85 @@
+<% include partials/header %>
+  <div class="container-fluid">
+    <div class="row helloDiv">
+      <div class="col-lg-6 ">
+          <h1>Pritraukite keliautojus ir skatinkite juos sugrįžti. Ir visą tai - be didelio vargo</h1>
+          <button href="#demo" type="button" class="btn btn-lg">Išbandyti demo</button>
+      </div>
+      <div class="col-lg-6">
+          <img src="/images/ltmap.png" class="img-responsive">
+      </div>
+    </div>
+    <div class="row valuesRow">
+      <h1>Mes suteikiame</h1>
+      <div class="col-lg-6 noPadding">
+        <div class="valueDiv">
+          <img src="/images/feedback.png">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+        </div>
+        <div class="valueDiv">
+          <img src="/images/statistika.png">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+        </div>
+      </div>
+      <div class="col-lg-6 noPadding">
+        <div class="valueDiv">
+          <img src="/images/itsprendimas.png">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+        </div>
+        <div class="valueDiv">
+          <img src="/images/skatinimas.png">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+        </div>
+      </div>
+    </div>
+    <div id="demo" class="row demoRow">
+      
+        <h1>Išbandykite demo</h1>
+        <% for(var i = 0; i < campaigns.length; i++) {%>
+        <div class="col-lg-<%=12/campaigns.length%>">
+              <div class="well">
+                <img src="/images/demola.png" alt="">
+                <h2><a href="/campaign/<%=campaigns[i]._id%>"><%= campaigns[i].title%></a></h2>
+                <button type="button" class="btn btn-lg btn-primary">Registruotis</button>
+                <h4>Sukūrė: <%= campaigns[i].autorius.vardas %></h4>
+                <h4>Sukurta prieš: <%= moment(campaigns[i].sukurimoData).fromNow() %></h4>
+              </div>
+          </div>
+        <%}%>
+      
+    </div>
+    <div class="row roadMapDiv">
+      <div class="col-lg-12 ">
+        <h1>Roadmap</h1>
+        <img src="/images/roadmap.jpg" class="img-responsive" alt="">
+      </div>
+    </div>
+    <div class="row teamInfo">
+      <h1>Komanda</h1>
+      <div col-lg-2 class="person">
+        <img src="/images/agota.jpg">
+        <h3>Agota Kazėnaitė</h3>
+        <p>Vilniaus universiteto programų sistemų 1 kurso studentė</p>
+      </div>
+      <div col-lg-2 class="person">
+        <img src="/images/aiste.jpg">
+        <h3>Aistė Končiūtė</h3>
+        <p>Vilniaus universiteto japonologijos 1 kurso studentė</p>
+      </div>
+      <div col-lg-2 class="person">
+        <img src="/images/arina.jpg">
+        <h3>Arina Česnulytė</h3>
+        <p>Vilniaus Gedimino technikos universiteto multimedijų ir kompiuterinio dizaino 3 kurso studentė</p>
+      </div>
+      <div col-lg-2 class="person">
+        <img src="/images/raminta.jpg">
+        <h3>Raminta Stebulytė</h3>
+        <p>Vilniaus Gedimino technikos universiteto programų inžinerios 1 kurso studentė</p>
+      </div>
+      <div col-lg-2 class="person">
+        <img src="/images/tomas.jpg">
+        <h3>Tomas Rimkus</h3>
+        <p>Vilniaus kolegijos programų sistemų 3 kurso studentas</p>
+      </div>
+    </div>
+<% include partials/footer %>

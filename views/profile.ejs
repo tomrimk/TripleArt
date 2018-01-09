@@ -2,7 +2,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>Node Authentication</title>
+	<title>Profilis</title>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<style>
@@ -29,6 +29,14 @@
 						<strong>name</strong>: <%= user.facebook.name %>
 					</p>
 
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="well">
+				<h3 class="text-primary">Jūsų turimi Campaign</h3>
+				<% for (var i = 0; i < campaigns.length; i++) {%>
+					<a href="/campaign/<%=campaigns[i]._id%>"><h3><%= campaigns[i].title%></h3></a><br>
+				<%}%>
 			</div>
 		</div>
 

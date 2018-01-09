@@ -15,6 +15,8 @@ require('./config/passport')(passport);
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.locals.moment = require('moment');
+
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -31,6 +33,7 @@ app.use(methodOverride('_method'));
 ejsLint('/views/campaign', '-d=%');
 
 require('./routes/index.js')(app, passport);
+require('./routes/campaign.js')(app, passport);
 
 const PORT = process.env.PORT || 3000;
 
