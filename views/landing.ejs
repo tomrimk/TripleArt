@@ -39,8 +39,8 @@
         <div class="col-lg-<%=12/campaigns.length%>">
               <div class="well">
                 <img src="/images/demola.png" alt="">
-                <h2><a href="/campaign/<%=campaigns[i]._id%>"><%= campaigns[i].title%></a></h2>
-                <button type="button" class="btn btn-lg btn-primary">Registruotis</button>
+                <h2><%= campaigns[i].title%></h2>
+                <a class="btn btn-lg btn-primary" href="/campaign/<%=campaigns[i]._id%>">Plačiau</a>
                 <h4>Sukūrė: <%= campaigns[i].autorius.vardas %></h4>
                 <h4>Sukurta prieš: <%= moment(campaigns[i].sukurimoData).fromNow() %></h4>
               </div>
@@ -50,7 +50,7 @@
     </div>
     <div class="row roadMapDiv">
       <div class="col-lg-12 ">
-        <h1>Roadmap</h1>
+        <h1>Veiksmų planas</h1>
         <img src="/images/roadmap.jpg" class="img-responsive" alt="">
       </div>
     </div>

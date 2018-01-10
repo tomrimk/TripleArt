@@ -20,6 +20,15 @@
 
 .navbar li {
   margin-top: 12%;
+  color: white;
+}
+
+.navbar-right li a {
+  color: white !important;
+}
+
+.dropdown-menu li a {
+  color: black !important;
 }
 
 .dropdown-toggle::after {
@@ -143,9 +152,9 @@ body,
   text-align: left;
 }
 
-.demoRow button {
-  border-radius: 0;
-  width: 100%;
+.demoRow .btn {
+  border-radius: 0 !important;
+  width: 100% !important;
 }
 
 .demoRow img {
@@ -280,3 +289,15 @@ body,
 }
 
 /* END OF FOOTER ROW */
+
+/* SHOW ROW */
+
+.showRow {
+  background: white;
+}
+
+.showRow .well {
+  width: 400px;
+}
+
+/* END OF SHOW ROW */

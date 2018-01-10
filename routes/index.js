@@ -6,17 +6,17 @@ const mapCreation = require('../config/map');
 
 module.exports = (app, passport) => {
   // ROOT ROUTE
-  // app.get('/', function(req, res) {
-  //   if (req.user) {
-  //     var qr_svg = qr.image('Vardas: ' + req.user.facebook.name, {
-  //       type: 'png'
-  //     });
-  //     qr_svg.pipe(
-  //       require('fs').createWriteStream(req.user.facebook.name + '.png')
-  //     );
-  //   }
-  //   res.render('../views/landing', { user: req.user });
-  // });
+  app.get('/buves', function(req, res) {
+    if (req.user) {
+      var qr_svg = qr.image('Vardas: ' + req.user.facebook.name, {
+        type: 'png'
+      });
+      qr_svg.pipe(
+        require('fs').createWriteStream(req.user.facebook.name + '.png')
+      );
+    }
+    res.render('../views/map', { user: req.user });
+  });
 
   // AUTH
   app.get(
@@ -102,7 +102,7 @@ module.exports = (app, passport) => {
       if (err) {
         console.log(err);
       } else {
-        res.render('campaign', {
+        res.render('campaign/registeredcampaign', {
           mapobjects: mapObjects,
           user: req.user
         });

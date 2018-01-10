@@ -9,7 +9,7 @@ module.exports = (app, passport) => {
 
   // CAMPAIGN SUKŪRIMO FORMA
   app.get('/campaign/create', isLoggedIn, (req, res) => {
-    res.render('createcampaign');
+    res.render('campaign/createcampaign');
   });
 
   // CAMPAIGN SUKŪRIMAS
@@ -27,13 +27,13 @@ module.exports = (app, passport) => {
   });
 
   // CAMPAIGN KŪRIMO PARODAMOJI DALIS
-  app.get('/campaign/:id', isLoggedIn, (req, res) => {
+  app.get('/campaign/create/:id', isLoggedIn, (req, res) => {
     Campaign.findById(req.params.id, (err, foundCampaign) => {
       if (err) {
         console.log(err);
         res.redirect('/');
       } else {
-        res.render('showcampaign', { campaign: foundCampaign });
+        res.render('campaign/showcampaign', { campaign: foundCampaign });
       }
     });
   });
@@ -55,6 +55,20 @@ module.exports = (app, passport) => {
         console.log(err);
       } else {
         res.redirect('/');
+      }
+    });
+  });
+
+  app.get('/map', (req, res) => {
+    MapObject.find({}, (err, foundCampaigns) => {
+      if (err) {
+        console.log(err);
+        res.redirect('/');
+      } else {
+        res.render('map', {
+          mapobjects: foundCampaigns,
+          user: req.body.user
+        });
       }
     });
   });
@@ -95,6 +109,34 @@ module.exports = (app, passport) => {
           } else {
             res.redirect('/campaign/' + req.params.id);
           }
+        });
+      }
+    });
+  });
+
+  app.get('/', (req, res) => {
+    Campaign.find({}, (err, foundCampaigns) => {
+      if (err) {
+        console.log(err);
+        res.redirect('/');
+      } else {
+        res.render('landing', {
+          user: req.body.user,
+          campaigns: foundCampaigns
+        });
+      }
+    });
+  });
+
+  app.get('/campaign/:id', (req, res) => {
+    Campaign.findById(req.params.id, (err, foundCampaign) => {
+      if (err) {
+        console.log(err);
+        res.redirect('/');
+      } else {
+        res.render('campaign/show', {
+          campaign: foundCampaign,
+          user: req.body.user
         });
       }
     });

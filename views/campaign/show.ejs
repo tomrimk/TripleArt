@@ -1,0 +1,24 @@
+<% include ../partials/header %>
+
+  <div class="container-fluid">
+    <div class="row showRow">
+      <div class="col-lg-4">
+        
+        <img class="img-responsive" src="/images/demola.png">
+        <h1><%= campaign.title %></h1>
+        <div class="well">
+          <ul>
+            <% for(var i = 0; i<campaign.mapObject.length; i++) { %>
+              <li><h4><%=i+1%> <%= campaign.mapObject[i].name%> <%= campaign.mapObject[i].lattitude%> <%= campaign.mapObject[i].longitude%></h4></li>
+            <%}%>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-8 map">
+          <img src="" alt="">
+      </div>
+    </div>
+    <script src="js/map.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQJ2TeX4CKtS00G-PbUMSuKjZ8fc-fyQQ&callback=initMap">
+  </script>
+<% include ../partials/footer %>
