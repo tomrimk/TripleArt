@@ -33,7 +33,7 @@
                   <h4 class="lattitude"><%= campaign.mapObject[i].lattitude%></h4>
                   <h4 class="longitude"><%= campaign.mapObject[i].longitude%></h4>
                   <form action="/user/addobject/<%=campaign.mapObject[i]._id%>?_method=PUT" method="POST">
-                    <button type="submit" class="btn btn-md btn-primary" href="#">Pasižymėti</button>
+                    <button onClick="checkIn(<%=campaign.mapObject[i].lattitude%>, <%=campaign.mapObject[i].longitude%>)" type="submit" class="btn btn-md btn-primary" href="#">Pasižymėti</button>
                   </form>
               </div>
             <%}%>
@@ -42,20 +42,21 @@
     </div>
 
     <div id="myModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="close">&times;</span>
-        <h2>Jei norite atsiimti prizą, parodykite šį kodą įmonės darbuotojui</h2>
-        <h2>Dėkojame, kad naudojatės mūsų paslaugomis!</h2>
-      </div>
-      <div class="modal-body">
-        <img src="/images/TomasRimkus.png" alt="">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Jei norite atsiimti prizą, parodykite šį kodą įmonės darbuotojui</h2>
+          <h2>Dėkojame, kad naudojatės mūsų paslaugomis!</h2>
+        </div>
+        <div class="modal-body">
+          <img src="/images/TomasRimkus.png" alt="">
+        </div>
       </div>
     </div>
-  </div>
 
 <% include ../partials/footer %>
 
+<!--MODAL -->
 <script>
     var modal = document.getElementById('myModal');
     var btn = document.getElementById("finished");
@@ -76,83 +77,124 @@
     }
 </script>
 
+<!-- InitMap -->
 <script>
-function initMap(){
-  var styledMapType = new google.maps.StyledMapType(
-    [
-      {
-        featureType: 'poi',
-        stylers: [
-          {
-            visibility: 'off'
-          }
-        ]
-      }
-    ],
-    { name: 'Styled Map' }
-  );
+  function initMap(){
+    var styledMapType = new google.maps.StyledMapType(
+      [
+        {
+          featureType: 'poi',
+          stylers: [
+            {
+              visibility: 'off'
+            }
+          ]
+        }
+      ],
+      { name: 'Styled Map' }
+    );
 
-  var latt = [];
-  var long = [];
-  var names = [];
-  var markersName = document.getElementsByClassName("name");  
-  var markersLattitude = document.getElementsByClassName("lattitude");
-  var markersLongitude = document.getElementsByClassName("longitude");
+    var latt = [];
+    var long = [];
+    var names = [];
+    var markersName = document.getElementsByClassName("name");  
+    var markersLattitude = document.getElementsByClassName("lattitude");
+    var markersLongitude = document.getElementsByClassName("longitude");
 
-  for(var i = 0; i < markersLattitude.length; i++) {
-    latt.push(parseFloat(markersLattitude[i].innerText));
+    for(var i = 0; i < markersLattitude.length; i++) {
+      latt.push(parseFloat(markersLattitude[i].innerText));
+    }
+
+    for(var i = 0; i < markersName.length; i++) {
+      names.push((markersName[i].innerText));
+    }
+
+    for(var i = 0; i < markersLongitude.length; i++) {
+      long.push(parseFloat(markersLongitude[i].innerText));
+    }
+
+    var center = { lat: latt[0], lng: long[0] };
+    
+    window.myMap = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: center,
+        mapTypeControlOptions: {
+          mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
+        }
+      });
+    
+    myMap.mapTypes.set('styled_map', styledMapType);
+    myMap.setMapTypeId('styled_map');
+
+    var image = {
+      url: '/images/marker.png',
+      size: new google.maps.Size(50, 50),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(0, 0),
+      scaledSize: new google.maps.Size(25, 25)
+    };
+
+    for(var i = 0; i < latt.length; i++) {
+      var marker = new google.maps.Marker({
+        position: { lat: latt[i], lng: long[i]},
+        map: myMap,
+        title: names[i],
+        icon: image
+      })
+    }
+
+    var proc = document.getElementById('procentai');
+    var butt = document.getElementById('finished');
+
+    if(proc.innerHTML == '100%') {
+      butt.style.visibility = "visible";
+    }
+  }
+</script>
+
+<script>
+  function measure(lat1, lon1, lat2, lon2) {
+    var R = 6378.137; // Radius of earth in KM
+    var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
+    var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
+    var a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1 * Math.PI / 180) *
+        Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    return Math.round(d * 1000); // meters
   }
 
-  for(var i = 0; i < markersName.length; i++) {
-    names.push((markersName[i].innerText));
+  function checkIn(lat, long) {
+
+  function success(pos) {
+    var currentLatitude = pos.coords.latitude;
+    var currentLongitude = pos.coords.longitude;
+
+    var distance = measure(
+      currentLatitude,
+      currentLongitude,
+      lat,
+      long
+    );
+
+    if (distance >= 100) {
+      alert("Esate per toli");
+    } else {
+      alert("Sveikiname, jums pavyko!");
+    }
+    console.log(distance);
   }
 
-  for(var i = 0; i < markersLongitude.length; i++) {
-    long.push(parseFloat(markersLongitude[i].innerText));
+  function error() {
+    console.log('Kažkas netaip');
   }
 
-  var center = { lat: latt[0], lng: long[0] };
-  
-  window.myMap = new google.maps.Map(document.getElementById('map'), {
-      zoom: 15,
-      center: center,
-      mapTypeControlOptions: {
-        mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
-      }
-    });
-  
-  myMap.mapTypes.set('styled_map', styledMapType);
-  myMap.setMapTypeId('styled_map');
-
-  var image = {
-    url: '/images/marker.png',
-    size: new google.maps.Size(50, 50),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(0, 0),
-    scaledSize: new google.maps.Size(25, 25)
-  };
-
-  for(var i = 0; i < latt.length; i++) {
-    var marker = new google.maps.Marker({
-      position: { lat: latt[i], lng: long[i]},
-      map: myMap,
-      title: names[i],
-      icon: image
-    })
-  }
-
-  var proc = document.getElementById('procentai');
-  var butt = document.getElementById('finished');
-
-  if(proc.innerHTML == '100%') {
-    butt.style.visibility = "visible";
-  }
-
-  console.log(proc.innerHTML);
+  navigator.geolocation.getCurrentPosition(success, error);
 }
-
-
-
 </script>
 
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQJ2TeX4CKtS00G-PbUMSuKjZ8fc-fyQQ&callback=initMap">

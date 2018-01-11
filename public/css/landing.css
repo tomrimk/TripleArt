@@ -153,6 +153,10 @@ body,
   text-align: left;
 }
 
+.demoRow .well a {
+  text-align: center !important;
+}
+
 .demoRow .btn {
   border-radius: 0 !important;
   width: 100% !important;

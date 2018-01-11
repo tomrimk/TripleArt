@@ -40,27 +40,6 @@ function initMap() {
     checkIn(e.latLng.lat(), e.latLng.lng());
   });
 
-  var contentString =
-    '<div id="content">' +
-    '<div id="siteNotice">' +
-    '</div>' +
-    '<h3 id="firstHeading" class="firstHeading">Gedimino pilies bokštas</h3>' +
-    '<div id="bodyContent">' +
-    '<p><b>Galimi taškai: 5</b></br>' +
-    '<p><a target="_blank" href="https://pamatyklietuvoje.lt/details/gedimino-pilies-bokstas/1480">Sužinoti daugiau</a></p>' +
-    '<form action="/check?_method=PUT" method="POST">' +
-    '<div class="form-group">' +
-    '<button onclick="checkIn()">Atsiimti elementus</button>' +
-    '</div>' +
-    ' </form>' +
-    '</div>' +
-    '</div>';
-
-  var infowindow = new google.maps.InfoWindow({
-    content: contentString,
-    pixelOffset: new google.maps.Size(-12, 0)
-  });
-
   var image = {
     url: 'images/marker.png',
     size: new google.maps.Size(50, 50),
@@ -73,10 +52,6 @@ function initMap() {
     position: gediminoPilis,
     map: myMap,
     icon: image
-  });
-
-  marker.addListener('click', function() {
-    infowindow.open(myMap, marker);
   });
 
   function setMapOnAll(map) {
