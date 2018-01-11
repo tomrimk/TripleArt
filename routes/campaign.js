@@ -75,25 +75,25 @@ module.exports = (app, passport) => {
   });
 
   // MAPOBJECT KŪRIMAS CAMPAIGNUI
-  // app.post('/campaign/:id', isLoggedIn, (req, res) => {
-  //   Campaign.findById(req.params.id, (err, foundCampaign) => {
-  //     if (err) {
-  //       console.log(err);
-  //       res.redirect('/');
-  //     } else {
-  //       MapObject.create(req.body.mapobject, (err, newMapObject) => {
-  //         if (err) {
-  //           console.log(err);
-  //           res.redirect('/');
-  //         } else {
-  //           foundCampaign.mapObject.push(newMapObject);
-  //           foundCampaign.save();
-  //           res.redirect('/campaign/' + req.params.id);
-  //         }
-  //       });
-  //     }
-  //   });
-  // });
+  app.post('/campaign/:id', isLoggedIn, (req, res) => {
+    Campaign.findById(req.params.id, (err, foundCampaign) => {
+      if (err) {
+        console.log(err);
+        res.redirect('/');
+      } else {
+        MapObject.create(req.body.mapobject, (err, newMapObject) => {
+          if (err) {
+            console.log(err);
+            res.redirect('/');
+          } else {
+            foundCampaign.mapObject.push(newMapObject);
+            foundCampaign.save();
+            res.redirect('back');
+          }
+        });
+      }
+    });
+  });
 
   // MapObject panaikinimas
   app.delete('/campaign/:id/:objid', isLoggedIn, (req, res) => {
@@ -158,6 +158,7 @@ module.exports = (app, passport) => {
     });
   });
 
+  // PASIŽYMĖJIMAS
   app.post('/user/addcampaign/:id', isLoggedIn, (req, res) => {
     Campaign.findById(req.params.id, (err, campaign) => {
       if (err) {

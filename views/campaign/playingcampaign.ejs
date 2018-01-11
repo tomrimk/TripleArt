@@ -33,7 +33,7 @@
                   <h4 class="lattitude"><%= campaign.mapObject[i].lattitude%></h4>
                   <h4 class="longitude"><%= campaign.mapObject[i].longitude%></h4>
                   <form action="/user/addobject/<%=campaign.mapObject[i]._id%>?_method=PUT" method="POST">
-                    <button onClick="checkIn(<%=campaign.mapObject[i].lattitude%>, <%=campaign.mapObject[i].longitude%>)" type="submit" class="btn btn-md btn-primary" href="#">Pasižymėti</button>
+                    <button onClick="checkIn(<%=campaign.mapObject[i].lattitude%>, <%=campaign.mapObject[i].longitude%>)" type="submit" class="btn btn-md btn-primary">Pasižymėti</button>
                   </form>
               </div>
             <%}%>
