@@ -1,0 +1,159 @@
+<% include ../partials/header %>
+<div class="container-fluid showing">
+    <div class="row mapRow">
+      <div class="col-lg-12 col-sm-12">
+        <div id="map"></div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%=100/user.mapObjects.length%>" aria-valuemin="0" aria-valuemax="100" style="width: <%= 100/user.mapObjects.length*campaign.mapObject.length%>%">
+              <span id="procentai"><%= 100/user.mapObjects.length*campaign.mapObject.length%>%</span>
+            </div>
+          </div>
+          <button class="btn btn-lg btn-default" id="finished" type="text">Atsiimti prizą</button>
+        <%var rasta = false%>
+        <% for(var i = 0; i < campaign.mapObject.length; i++) {%>
+          <% for(var j = 0; j < user.mapObjects.length; j++) { %>
+            <% if(user.mapObjects[j].id.equals(campaign.mapObject[i]._id) || user.mapObjects.length == 0) {%>
+            <div class="well playingWell checked">
+              <h4><%= i+1%>.</h4>
+              <h4 class="name"><%= campaign.mapObject[i].name%></h4>
+              <h4 class="lattitude"><%= campaign.mapObject[i].lattitude%></h4>
+              <h4 class="longitude"><%= campaign.mapObject[i].longitude%></h4>
+            </div>
+            <%rasta=true%>
+            <%break%>
+            <%} else {%>
+              <%rasta=false%>
+              <%continue%>
+            <%}%>
+          <%}%>
+          <%if(!rasta) {%>
+              <div class="well playingWell">
+                  <h4><%= j+1%>.</h4>
+                  <h4 class="name"><%= campaign.mapObject[i].name%></h4>
+                  <h4 class="lattitude"><%= campaign.mapObject[i].lattitude%></h4>
+                  <h4 class="longitude"><%= campaign.mapObject[i].longitude%></h4>
+                  <form action="/user/addobject/<%=campaign.mapObject[i]._id%>?_method=PUT" method="POST">
+                    <button type="submit" class="btn btn-md btn-primary" href="#">Pasižymėti</button>
+                  </form>
+              </div>
+            <%}%>
+        <%}%>
+      </div>
+    </div>
+
+    <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>Jei norite atsiimti prizą, parodykite šį kodą įmonės darbuotojui</h2>
+        <h2>Dėkojame, kad naudojatės mūsų paslaugomis!</h2>
+      </div>
+      <div class="modal-body">
+        <img src="/images/TomasRimkus.png" alt="">
+      </div>
+    </div>
+  </div>
+
+<% include ../partials/footer %>
+
+<script>
+    var modal = document.getElementById('myModal');
+    var btn = document.getElementById("finished");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+<script>
+function initMap(){
+  var styledMapType = new google.maps.StyledMapType(
+    [
+      {
+        featureType: 'poi',
+        stylers: [
+          {
+            visibility: 'off'
+          }
+        ]
+      }
+    ],
+    { name: 'Styled Map' }
+  );
+
+  var latt = [];
+  var long = [];
+  var names = [];
+  var markersName = document.getElementsByClassName("name");  
+  var markersLattitude = document.getElementsByClassName("lattitude");
+  var markersLongitude = document.getElementsByClassName("longitude");
+
+  for(var i = 0; i < markersLattitude.length; i++) {
+    latt.push(parseFloat(markersLattitude[i].innerText));
+  }
+
+  for(var i = 0; i < markersName.length; i++) {
+    names.push((markersName[i].innerText));
+  }
+
+  for(var i = 0; i < markersLongitude.length; i++) {
+    long.push(parseFloat(markersLongitude[i].innerText));
+  }
+
+  var center = { lat: latt[0], lng: long[0] };
+  
+  window.myMap = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: center,
+      mapTypeControlOptions: {
+        mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
+      }
+    });
+  
+  myMap.mapTypes.set('styled_map', styledMapType);
+  myMap.setMapTypeId('styled_map');
+
+  var image = {
+    url: '/images/marker.png',
+    size: new google.maps.Size(50, 50),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(0, 0),
+    scaledSize: new google.maps.Size(25, 25)
+  };
+
+  for(var i = 0; i < latt.length; i++) {
+    var marker = new google.maps.Marker({
+      position: { lat: latt[i], lng: long[i]},
+      map: myMap,
+      title: names[i],
+      icon: image
+    })
+  }
+
+  var proc = document.getElementById('procentai');
+  var butt = document.getElementById('finished');
+
+  if(proc.innerHTML == '100%') {
+    butt.style.visibility = "visible";
+  }
+
+  console.log(proc.innerHTML);
+}
+
+
+
+</script>
+
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQJ2TeX4CKtS00G-PbUMSuKjZ8fc-fyQQ&callback=initMap">
+  </script>

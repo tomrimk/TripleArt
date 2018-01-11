@@ -4,7 +4,7 @@
   font-size: 24px !important;
   background: #236eba !important;
   margin: 0 !important;
-  height: 200px;
+  height: 130px;
   display: inline-block;
   vertical-align: middle;
   width: 100%;
@@ -37,7 +37,7 @@
 
 .navbar img {
   margin-left: 25px;
-  height: 150px;
+  height: 100px;
 }
 
 html,
@@ -70,7 +70,7 @@ body,
   line-height: 70px;
 }
 
-.helloDiv button {
+.helloDiv a {
   margin-left: 25px;
   border: 0;
   border-radius: 0;
@@ -105,7 +105,6 @@ body,
   text-align: center;
   margin-bottom: 50px;
   height: 138px;
-  border-right: 1px solid #236eba;
   padding: 0;
 }
 
@@ -123,6 +122,7 @@ body,
   width: 400px;
   display: inline-block;
   vertical-align: middle;
+  font-size: 24px;
 }
 
 /* END OF VALUES ROW */
@@ -133,6 +133,7 @@ body,
   height: auto;
   background: #236eba;
   text-align: center;
+  margin-bottom: 45px;
 }
 
 .demoRow h1 {
@@ -292,12 +293,189 @@ body,
 
 /* SHOW ROW */
 
-.showRow {
-  background: white;
+.showing {
+  padding: 0 !important;
 }
 
-.showRow .well {
+#map {
+  z-index: 10;
+  height: 500px;
+  padding: 0;
+  margin-left: 20px;
+}
+
+.client {
+  width: 100%;
+}
+
+.mapRow {
+  width: 100%;
+}
+
+#campaignId {
+  color: white;
+}
+
+.nuotraukos img {
+  height: 100px;
+  display: inline-block;
+}
+
+.nuotraukos h2,
+.nuotraukos h1 {
+  color: white;
+}
+
+.nuotraukos h1 {
+  margin: 0;
+}
+
+.nuotraukos button {
+  display: block;
+  border-radius: 0;
+  width: 50%;
+  margin-top: 15px;
+}
+
+.well {
+  border-radius: 0 !important;
+  margin: 0 !important;
+  margin-left: 20px !important;
+}
+
+.well h4 {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.well a {
+  border-radius: 0;
+  text-align: left;
+}
+
+.playingWell {
+  display: block;
+  margin: 0 auto !important;
+  margin-left: 20px !important;
+}
+
+.progress {
+  border-radius: 0 !important;
+  margin-left: 20px !important;
+  padding: 0 !important;
+}
+
+.checked {
+  background: rgb(32, 145, 32) !important;
+  color: white;
+  border: 0 !important;
+}
+
+#finished {
+  visibility: hidden;
+  border-radius: 0;
+  margin-left: 20px;
+  margin-bottom: 25px;
+}
+
+.modal-header {
+  padding: 0 !important;
+  background-color: #337ab7;
+  color: white;
+}
+
+.modal-header h2 {
+  margin-left: 10px;
+}
+
+.modal-header .close {
+  margin-top: 0 !important;
+}
+
+#myModal {
   width: 400px;
+  margin: 0 auto;
+  margin-top: 50px;
 }
 
+.modal-body {
+  padding: 2px 16px;
+}
+
+.modal-body img {
+  display: block;
+  margin: 0 auto;
+  height: 150px;
+}
+
+.close {
+  color: white;
+  background: white;
+  float: right;
+  font-size: 40px !important;
+  font-weight: bold;
+  padding: 20px;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 /* END OF SHOW ROW */
+
+@media only screen and (max-width: 600px) {
+  .navbar img {
+    margin-left: 25px;
+    height: 70px;
+  }
+
+  .helloDiv h1 {
+    margin-left: 15px;
+    font-size: 35px;
+    word-spacing: 5px;
+    line-height: 50px;
+  }
+
+  .helloDiv a {
+    display: block;
+    margin: 0 auto;
+    border: 0;
+    border-radius: 0;
+    margin-top: 20px;
+    width: 300px;
+    background: #ffc121;
+    color: white;
+    margin-bottom: 45px;
+  }
+
+  .helloDiv img {
+    display: none;
+  }
+
+  .valuesRow p {
+    width: 200px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 24px;
+  }
+
+  .nuotraukos {
+    margin-left: 20px;
+  }
+
+  .nuotraukos button {
+    display: block;
+    margin: 0 auto;
+    border-radius: 0;
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  #myModal {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+}

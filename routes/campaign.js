@@ -1,5 +1,6 @@
 const MapObject = require('../models/MapObject');
 const Campaign = require('../models/Campaign');
+const User = require('../models/User');
 
 module.exports = (app, passport) => {
   // NOT RELATED TO BELOW
@@ -74,25 +75,25 @@ module.exports = (app, passport) => {
   });
 
   // MAPOBJECT KŪRIMAS CAMPAIGNUI
-  app.post('/campaign/:id', isLoggedIn, (req, res) => {
-    Campaign.findById(req.params.id, (err, foundCampaign) => {
-      if (err) {
-        console.log(err);
-        res.redirect('/');
-      } else {
-        MapObject.create(req.body.mapobject, (err, newMapObject) => {
-          if (err) {
-            console.log(err);
-            res.redirect('/');
-          } else {
-            foundCampaign.mapObject.push(newMapObject);
-            foundCampaign.save();
-            res.redirect('/campaign/' + req.params.id);
-          }
-        });
-      }
-    });
-  });
+  // app.post('/campaign/:id', isLoggedIn, (req, res) => {
+  //   Campaign.findById(req.params.id, (err, foundCampaign) => {
+  //     if (err) {
+  //       console.log(err);
+  //       res.redirect('/');
+  //     } else {
+  //       MapObject.create(req.body.mapobject, (err, newMapObject) => {
+  //         if (err) {
+  //           console.log(err);
+  //           res.redirect('/');
+  //         } else {
+  //           foundCampaign.mapObject.push(newMapObject);
+  //           foundCampaign.save();
+  //           res.redirect('/campaign/' + req.params.id);
+  //         }
+  //       });
+  //     }
+  //   });
+  // });
 
   // MapObject panaikinimas
   app.delete('/campaign/:id/:objid', isLoggedIn, (req, res) => {
@@ -121,7 +122,7 @@ module.exports = (app, passport) => {
         res.redirect('/');
       } else {
         res.render('landing', {
-          user: req.body.user,
+          user: req.user,
           campaigns: foundCampaigns
         });
       }
@@ -136,7 +137,107 @@ module.exports = (app, passport) => {
       } else {
         res.render('campaign/show', {
           campaign: foundCampaign,
-          user: req.body.user
+          user: req.user
+        });
+      }
+    });
+  });
+
+  // PLAYING CAMPAIGN
+  app.get('/campaign/playing/:id', (req, res) => {
+    Campaign.findById(req.params.id, (err, foundCampaign) => {
+      if (err) {
+        console.log(err);
+        res.redirect('/');
+      } else {
+        res.render('campaign/playingcampaign', {
+          user: req.user,
+          campaign: foundCampaign
+        });
+      }
+    });
+  });
+
+  app.post('/user/addcampaign/:id', isLoggedIn, (req, res) => {
+    Campaign.findById(req.params.id, (err, campaign) => {
+      if (err) {
+        console.log(err);
+      } else {
+        const obj = {
+          id: campaign,
+          registered: true,
+          finished: false
+        };
+        User.findByIdAndUpdate(req.user._id, obj, (err, user) => {
+          if (err) {
+            handleError(err);
+          } else {
+            res.redirect('/campaign/playing/' + req.params.id);
+          }
+        });
+      }
+    });
+  });
+
+  // PRIDĖTI CAMPAIGN KELIAUTOJUI
+  app.put('/user/:id/addcampaign/:cid', isLoggedIn, (req, res) => {
+    User.findById(req.params.id, (err, user) => {
+      if (err) {
+        res.json(err);
+      } else {
+        const obj = {
+          id: req.params.cid,
+          registered: true,
+          finished: false
+        };
+
+        var yra = false;
+        for (var i = 0; i < user.campaigns.length; i++) {
+          if (user.campaigns[i].id == req.params.cid) {
+            yra = true;
+          }
+        }
+
+        if (yra) {
+          res.redirect('/campaign/playing/' + req.params.cid);
+        } else {
+          user.campaigns.push(obj);
+          user.save();
+          res.redirect('/campaign/playing/' + req.params.cid);
+        }
+      }
+    });
+  });
+
+  // PRIDĖTI mapObject keliautojui
+  app.put('/user/addobject/:oid', isLoggedIn, (req, res) => {
+    User.findById(req.user._id, (err, user) => {
+      if (err) {
+        res.json(err);
+      } else {
+        MapObject.findById(req.params.oid, (err, object) => {
+          if (err) {
+            res.json(err);
+          } else {
+            const obj = {
+              id: req.params.oid
+            };
+
+            var yra = false;
+            for (var i = 0; i < user.mapObjects.length; i++) {
+              if (user.mapObjects[i].id == req.params.oid) {
+                yra = true;
+              }
+            }
+
+            if (yra) {
+              res.redirect('back');
+            } else {
+              user.mapObjects.push(obj);
+              user.save();
+              res.redirect('back');
+            }
+          }
         });
       }
     });

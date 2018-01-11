@@ -9,7 +9,21 @@ const userSchema = new Schema({
     name: String,
     username: String
   },
-  points: { type: Number, default: 0 }
+  campaigns: [
+    {
+      id: String,
+      registered: Boolean,
+      finished: Boolean
+    }
+  ],
+  mapObjects: [
+    {
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'MapObject'
+      }
+    }
+  ]
 });
 
 module.exports = mongoose.model('User', userSchema);
