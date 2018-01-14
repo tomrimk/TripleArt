@@ -4,8 +4,8 @@
       <div class="col-lg-12 col-sm-12">
         <div id="map"></div>
           <div class="progress">
-            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%=100/user.mapObjects.length%>" aria-valuemin="0" aria-valuemax="100" style="width: <%= 100/user.mapObjects.length*campaign.mapObject.length%>%">
-              <span id="procentai"><%= 100/user.mapObjects.length*campaign.mapObject.length%>%</span>
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%=100/user.mapObjects.length%>" aria-valuemin="0" aria-valuemax="100" style="width: <%= 100*(user.mapObjects.length/campaign.mapObject.length)%>%">
+              <span id="procentai"><%= 100*(user.mapObjects.length/campaign.mapObject.length)%>%</span>
             </div>
           </div>
           <button class="btn btn-lg btn-default" id="finished" type="text">Atsiimti prizą</button>
@@ -32,8 +32,8 @@
                   <h4 class="name"><%= campaign.mapObject[i].name%></h4>
                   <h4 class="lattitude"><%= campaign.mapObject[i].lattitude%></h4>
                   <h4 class="longitude"><%= campaign.mapObject[i].longitude%></h4>
-                  <form action="/user/addobject/<%=campaign.mapObject[i]._id%>?_method=PUT" method="POST">
-                    <button onClick="checkIn(<%=campaign.mapObject[i].lattitude%>, <%=campaign.mapObject[i].longitude%>)" type="submit" class="btn btn-md btn-primary">Pasižymėti</button>
+                  <form onsubmit="return checkIn(<%=campaign.mapObject[i].lattitude%>, <%=campaign.mapObject[i].longitude%>)" action="/user/addobject/<%=campaign.mapObject[i]._id%>?_method=PUT" method="POST">
+                  <button onClick="checkIn(<%=campaign.mapObject[i].lattitude%>, <%=campaign.mapObject[i].longitude%>)" type="submit" class="btn btn-md btn-primary">Pasižymėti</button>
                   </form>
               </div>
             <%}%>
