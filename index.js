@@ -25,6 +25,10 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function(req, res, next) {
+  res.locals.loggedUser = req.user;
+  next();
+});
 // set up our express application
 app.use(cookieParser()); // read cookies (needed for auth)
 

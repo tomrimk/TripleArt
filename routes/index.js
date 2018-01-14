@@ -124,13 +124,17 @@ module.exports = (app, passport) => {
 
   // PRIVACY POLICY
   app.get('/privacy', (req, res) => {
-    User.findById(req.user._id, (err, user) => {
-      if (err) {
-        res.json(err);
-      } else {
-        res.render('privacypolicy', { user: user });
-      }
-    });
+    if (req.user) {
+      User.findById(req.user._id, (err, user) => {
+        if (err) {
+          res.json(err);
+        } else {
+          res.render('privacypolicy', { user: user });
+        }
+      });
+    } else {
+      res.render('privacypolicy');
+    }
   });
 };
 
