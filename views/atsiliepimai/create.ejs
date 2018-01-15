@@ -6,8 +6,8 @@
     <form action="/atsiliepimai/new" method="POST">
       <h2>Kaip įvertintumėte mūsų teikiamą paslaugą?</h2>
       <label for="ivertinimas">Įvertinimas:</label>
-      <select id="ivetinimas" class="form-control" name="atsiliepimas[ivertinimas]">
-        <option value="5" selected>5</option>
+      <select id="ivetinimas" class="form-control" name="atsiliepimas[ivertinimas]" required>
+        <option value="5">5</option>
         <option value="4">4</option>
         <option value="3">3</option>
         <option value="2">2</option>
@@ -15,7 +15,7 @@
       </select>
       <div class="form-group">
         <label for="komentaras">Jūsų komentaras:</label>
-        <textarea id="komentaras" name="atsiliepimas[tekstas]" class="form-control" rows="5" cols="2"></textarea>
+        <textarea id="komentaras" name="atsiliepimas[tekstas]" class="form-control" rows="5" cols="2" required></textarea>
       </div>
       <div class="form-group">
         <button style="width: 250px;" class="btn btn-lg btn-default btn-block center-block">Siųsti</button>

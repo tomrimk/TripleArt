@@ -5,9 +5,10 @@
     <% if(atsiliepimai.length) {%>
       <% for (var i = atsiliepimai.length-1; i >= 0; i--) {%>
         <div class="well">
-          <h2><%= atsiliepimai[i].ivertinimas%></h2>
-          <p><%= atsiliepimai[i].tekstas%></p>
-          <h5>Sukurta: <%= atsiliepimai[i].vardas%></h5>
+          <h2>Įvertinimas: <%= atsiliepimai[i].ivertinimas%></h2>
+          <p>Pranešimas: <%= atsiliepimai[i].tekstas%></p>
+          <h5>Sukūrė: <%= atsiliepimai[i].vardas%></h5>
+          <h5>Sukūrimo data: <%= moment(atsiliepimai[i].sukurta).format('LLL')%></h5>
         </div>
       <%}%>
     <%} else {%>

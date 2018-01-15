@@ -50,6 +50,7 @@
         <h2>Norėdami gauti prizą, apsilankykite ir pažymėkite, kad apsilankėtė sąraše pažymėtuose objektuose</h2>
         <h2>Progresas: <%= user.mapObjects.length%> / <%= campaign.mapObject.length%></h2>
         <button id="finished" class="btn btn-lg btn-default">Atsiimti prizą</button>
+        <a id="finishedAtsiliepimas" href="/atsiliepimas/create" class="btn btn-lg btn-default">Palikti atsiliepimą</a>
       </div>
     </div>
 
@@ -165,9 +166,11 @@
     var isViso = document.getElementsByClassName('obj');
     var pazymeta = document.getElementsByClassName('checked');
     var butt = document.getElementById('finished');
+    var atsbutt = document.getElementById('finishedAtsiliepimas');
 
     if(isViso.length == pazymeta.length) {
       butt.style.visibility = "visible";
+      atsbutt.style.visibility = "visible";
     }
   }
 </script>
