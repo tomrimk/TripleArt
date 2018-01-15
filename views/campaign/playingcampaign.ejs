@@ -47,8 +47,8 @@
       </div>
       
       <div class="col-lg-5 nuotraukos">
-        <h2>Norėdami gauti prizą, apsilankykite ir pažymėkite, kad apsilankėtė sąraše pažymėtuose objektuose</h2>
-        <h2>Progresas: <%= user.mapObjects.length%> / <%= campaign.mapObject.length%></h2>
+        <h2>Instrukcija</h2>
+        <h2>Aplankytą objektų: <%= user.mapObjects.length%> iš <%= campaign.mapObject.length%></h2>
         <button id="finished" class="btn btn-lg btn-default">Atsiimti prizą</button>
         <a id="finishedAtsiliepimas" href="/atsiliepimas/create" class="btn btn-lg btn-default">Palikti atsiliepimą</a>
       </div>
@@ -70,6 +70,18 @@
         <div class="modal-body">
           <img src="/images/TomasRimkus.png" alt="">
           <h6 class="text-center">*Prizų kiekis ribotas</h6>
+        </div>
+      </div>
+    </div>
+
+    <div id="instrukcija" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Instrukcija</h2>
+        </div>
+        <div class="modal-body">
+
         </div>
       </div>
     </div>

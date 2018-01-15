@@ -283,7 +283,8 @@ body,
   line-height: 25px;
 }
 
-.footerRow ul li a:hover {
+.footerRow ul li a:hover,
+.footerRow a:hover {
   color: white !important;
 }
 
