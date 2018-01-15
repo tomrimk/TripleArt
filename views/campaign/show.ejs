@@ -1,24 +1,36 @@
 <% include ../partials/header %>
 <div class="container-fluid showing">
+<h1 id="campaignTitle"><%= campaign.title%></h1>
     <div class="row mapRow">
-      <div class="col-lg-8">
-        <div id="map"></div>
-        <% for(var i = 0; i < campaign.mapObject.length; i++) {%>
-          <div class="well">
-            <h4><%= i+1%>.</h4>
-            <h4 class="name"><%= campaign.mapObject[i].name%></h4>
-            <h4 class="lattitude"><%= campaign.mapObject[i].lattitude%></h4>
-            <h4 class="longitude"><%= campaign.mapObject[i].longitude%></h4>
-          </div>
-        <%}%>
+      <div class="col-lg-7 mapDiv">
+        <h2>Iššūkio objektai</h2>
+        <div id="pagalbinis" style="overflow-y: auto">
+          <table class="table table-hover objectTable">
+            <tr>
+            <th>Nr.</th>
+            <th>Pavadinimas</th>
+            <th>Lattitude</th>
+            <th>Longitude</th>
+            </tr>       
+            <% for(var i = 0; i < campaign.mapObject.length; i++) {%>
+              <tr>
+                <td><%= i+1%>.</td>
+                <td class="name"><%= campaign.mapObject[i].name%></td>
+                <td class="lattitude"><%= campaign.mapObject[i].lattitude%></td>
+                <td class="longitude"><%= campaign.mapObject[i].longitude%></td>
+              </tr>
+            <%}%>
+          </table>
+          
+        </div>
       </div>
-      <div class="col-lg-4 nuotraukos">
-        <h1><%= campaign.title%></h1>
-        <h2>Sukūrė: <%= campaign.autorius.vardas%></h2>
-        <h2>Objektų skaičius: <%= campaign.mapObject.length%></h2>
-        <h2>Galioja iki: 2018-01-18</h2>
-        <img src="/images/demola.png" alt="">
-        <img src="/images/vitp.jpg" alt="">
+      
+      <div class="col-lg-5 nuotraukos">
+        <h2>Iššūkio prizas</h2>
+        <div class="well">
+          <img class="center-block img-responsive" src="/images/candy.jpg" alt="">
+        </div>
+        <h4>Galioja iki: 2018-01-18</h4>
         <% if(!user) {%>
           <a class="btn btn-lg btn-default" href="#">Pradėti</a>
         <%} else {%>
@@ -28,15 +40,15 @@
         <%}%>
       </div>
     </div>
-    <div class="row client">
-      
-      <div class="col-lg-8">
-        
+
+    <div class="row google">
+      <div class="col-lg-12 ">
+        <div id="map"></div>
       </div>
     </div>
 
 <% include ../partials/footer %>
-
+ 
 <script>
 function initMap(){
   var styledMapType = new google.maps.StyledMapType(

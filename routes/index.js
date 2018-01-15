@@ -136,6 +136,10 @@ module.exports = (app, passport) => {
       res.render('privacypolicy');
     }
   });
+
+  app.get('*', (req, res) => {
+    res.send('Sis puslapis neegzistuoja');
+  });
 };
 
 function isLoggedIn(req, res, next) {

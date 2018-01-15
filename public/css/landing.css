@@ -1,4 +1,9 @@
 .navbar {
+  margin: 0 !important;
+  border: none !important;
+}
+
+.navbar-header {
   border: none !important;
   border-radius: 0 !important;
   font-size: 24px !important;
@@ -6,8 +11,17 @@
   margin: 0 !important;
   height: 130px;
   display: inline-block;
-  vertical-align: middle;
-  width: 100%;
+  margin: 0 !important;
+}
+
+.collapsed span {
+  background: white !important;
+}
+
+.navbar-right {
+  font-size: 24px !important;
+  background: #236eba !important;
+  margin: 0 !important;
 }
 
 .noPadding {
@@ -19,7 +33,7 @@
 }
 
 .navbar li {
-  margin-top: 12%;
+  margin-top: 5%;
   color: white;
 }
 
@@ -301,37 +315,44 @@ body,
   padding: 0 !important;
 }
 
+.google {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100%;
+}
+
+.google div {
+  padding: 0;
+}
+
 #map {
   z-index: 10;
   height: 500px;
-  padding: 0;
-  margin-left: 20px;
-}
-
-.client {
+  padding: 0 !important;
+  margin-top: 45px;
   width: 100%;
 }
 
 .mapRow {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.mapDiv h2 {
+  color: white;
+  margin-left: 20px;
   width: 100%;
 }
 
-#campaignId {
+#campaignTitle {
   color: white;
-}
-
-.nuotraukos img {
-  height: 100px;
-  display: inline-block;
+  margin-left: 20px;
+  font-size: 60px;
 }
 
 .nuotraukos h2,
-.nuotraukos h1 {
+.nuotraukos h4 {
   color: white;
-}
-
-.nuotraukos h1 {
-  margin: 0;
 }
 
 .nuotraukos button {
@@ -344,7 +365,6 @@ body,
 .well {
   border-radius: 0 !important;
   margin: 0 !important;
-  margin-left: 20px !important;
 }
 
 .tvirtinimas {
@@ -379,10 +399,13 @@ body,
   border: 0 !important;
 }
 
+.checked:hover {
+  background: rgb(25, 95, 25) !important;
+}
+
 #finished {
   visibility: hidden;
   border-radius: 0;
-  margin-left: 20px;
   margin-bottom: 25px;
 }
 
@@ -431,9 +454,43 @@ body,
   text-decoration: none;
   cursor: pointer;
 }
+
+.objectTable {
+  background: white;
+  width: 100% !important;
+  height: 50px !important;
+}
+
+#pagalbinis {
+  margin-left: 20px;
+  height: 500px;
+}
+
+.objectTable tr:hover {
+  background: #e0dbdb !important;
+  color: black;
+}
+
+.apsilankiau {
+  border-radius: 0;
+}
+
+.map {
+  width: 100% !important;
+  padding: 0 !important;
+}
+
 /* END OF SHOW ROW */
 
 @media only screen and (max-width: 600px) {
+  .navbar-header {
+    width: 100%;
+  }
+
+  .collapsed {
+    margin-top: 35px !important;
+  }
+
   .navbar img {
     margin-left: 25px;
     height: 70px;
@@ -487,3 +544,27 @@ body,
     margin-top: 50px;
   }
 }
+
+/* FEEDBACK ROW */
+
+.feedbackRow {
+  width: 800px;
+  margin: 0 auto !important;
+  color: white;
+}
+
+.feedbackRow select {
+  width: 60px;
+  margin-bottom: 20px;
+}
+
+.showfeed {
+  width: 80%;
+  margin: 0 auto !important;
+}
+
+.showfeed .well {
+  margin-bottom: 15px !important;
+}
+
+/* END OF FEEDBACK ROW */

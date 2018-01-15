@@ -1,0 +1,17 @@
+<% include ../partials/header %>
+
+<div class="container-fluid feed">
+  <div class="row showfeed">
+    <% if(atsiliepimai.length) {%>
+      <% for (var i = atsiliepimai.length-1; i >= 0; i--) {%>
+        <div class="well">
+          <h2><%= atsiliepimai[i].ivertinimas%></h2>
+          <p><%= atsiliepimai[i].tekstas%></p>
+          <h5>Sukurta: <%= atsiliepimai[i].vardas%></h5>
+        </div>
+      <%}%>
+    <%} else {%>
+      <h2>Atsiliepimų nėra</h2>
+    <%}%>
+
+<% include ../partials/footer %>

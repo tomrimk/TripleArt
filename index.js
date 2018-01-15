@@ -36,8 +36,9 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 app.use(methodOverride('_method'));
 ejsLint('/views/campaign', '-d=%');
 
-require('./routes/index.js')(app, passport);
 require('./routes/campaign.js')(app, passport);
+require('./routes/atsiliepimai.js')(app, passport);
+require('./routes/index.js')(app, passport);
 
 const PORT = process.env.PORT || 3000;
 
