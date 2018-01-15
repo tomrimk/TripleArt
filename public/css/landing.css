@@ -540,7 +540,8 @@ body,
     margin-left: 20px;
   }
 
-  .nuotraukos button {
+  .nuotraukos button,
+  .nuotraukos a {
     display: block;
     margin: 0 auto;
     border-radius: 0;
