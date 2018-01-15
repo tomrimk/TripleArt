@@ -41,8 +41,6 @@
                 <img src="/images/demola.png" alt="">
                 <h2><%= campaigns[i].title%></h2>
                 <a class="btn btn-lg btn-primary" href="/campaign/<%=campaigns[i]._id%>">Plačiau</a>
-                <h4>Sukūrė: <%= campaigns[i].autorius.vardas %></h4>
-                <h4>Sukurta prieš: <%= moment(campaigns[i].sukurimoData).fromNow() %></h4>
               </div>
           </div>
         <%}%>

@@ -440,6 +440,18 @@ body,
   margin-top: 50px;
 }
 
+#modalInst {
+  width: 800px;
+  margin: 0 auto;
+  margin-top: 50px;
+  overflow-y: auto;
+}
+
+#instrukcija {
+  color: white !important;
+  cursor: pointer;
+}
+
 .modal-body {
   padding: 2px 16px;
 }
@@ -551,6 +563,12 @@ body,
   }
 
   #myModal {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+
+  #modalInst {
     width: 100%;
     margin: 0 auto;
     margin-top: 50px;

@@ -47,7 +47,7 @@
       </div>
       
       <div class="col-lg-5 nuotraukos">
-        <h2>Instrukcija</h2>
+        <h2><a id="instrukcija">Instrukcija</a></h2>
         <h2>Aplankytą objektų: <%= user.mapObjects.length%> iš <%= campaign.mapObject.length%></h2>
         <button id="finished" class="btn btn-lg btn-default">Atsiimti prizą</button>
         <a id="finishedAtsiliepimas" href="/atsiliepimas/create" class="btn btn-lg btn-default">Palikti atsiliepimą</a>
@@ -74,14 +74,22 @@
       </div>
     </div>
 
-    <div id="instrukcija" class="modal">
+    <div id="modalInst" class="modal">
       <div class="modal-content">
         <div class="modal-header">
           <span class="close">&times;</span>
           <h2>Instrukcija</h2>
         </div>
         <div class="modal-body">
-
+          <h2>1. Objektų žymėjimasis</h2>
+          <p>Jei aplankėte objektą esantį iššūkio saraše, paspauskite mygtuką apsilankiau ir šis objektas bus pažymėtas kaip aplankytas. (nusispalvins žaliai)</p>
+          <h2>2. Iššūkio įvygdymas</h2>
+          <p>Iššūkis tampa įvygdytu, kai visi sąraše pateikti objektai yra aplankyti ir nuspalvinti. Tai jums sekti padeda ir šone esantis aplankytų objektų sekėjas.</p>
+          <h2>3. Prizo atsiėmimas</h2>
+          <p>Įvygdžius iššūkį, atsiras mygtukas, kuris leis atsiimti prizą. Paspaudus mygtuką iššoks langas su specialiu QR kodu, kurį galėsite parodyti iššūkį sukūrusios įmonės darbuotojui ir atsiimti jums skirtą prizą. </p>
+          <h2>4. Jūsų nuomonė</h2>
+          <p>Nepamirškite palikti atsiliepimą, nuomonę ar pastebėjimą. Jūsų įžvalgos mums svarbios, į jas atsižvelgsime toliau kurdami ir tobulindami šį produktą. </p>
+          <h2>Dėkojame, kad naudojatės mūsų produktu.</h2>
         </div>
       </div>
     </div>
@@ -92,20 +100,33 @@
 <script>
     var modal = document.getElementById('myModal');
     var btn = document.getElementById("finished");
-    var span = document.getElementsByClassName("close")[0];
+    var span1 = document.getElementsByClassName("close")[0];
+    var span2 = document.getElementsByClassName("close")[1];
+    var instrukcija = document.getElementById("instrukcija");
+    var modalInst = document.getElementById("modalInst");
+
+    instrukcija.onclick = function() {
+        modalInst.style.display = "block";
+    }
+
+    span2.onclick = function() {
+        modalInst.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modalInst) {
+            modalInst.style.display = "none";
+        } else if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
     btn.onclick = function() {
         modal.style.display = "block";
     }
 
-    span.onclick = function() {
+    span1.onclick = function() {
         modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
     }
 </script>
 
