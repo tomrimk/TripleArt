@@ -11,7 +11,8 @@
             <th>Pavadinimas</th>
             <th>Lattitude</th>
             <th>Longitude</th>
-            </tr>       
+            </tr>
+            <% var rasta = false %>
             <% for(var i = 0; i < campaign.mapObject.length; i++) {%>
                   <% for(var j = 0; j < user.mapObjects.length; j++) { %>
                     <% if(user.mapObjects[j].id.equals(campaign.mapObject[i]._id) || user.mapObjects.length == 0) {%>
