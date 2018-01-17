@@ -29,7 +29,7 @@ module.exports = (app, passport) => {
     '/auth/facebook/callback',
     passport.authenticate('facebook', { failureRedirect: '/' }),
     function(req, res) {
-      res.redirect('back');
+      res.redirect('/privacy');
     }
   );
 
