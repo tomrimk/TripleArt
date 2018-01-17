@@ -43,7 +43,12 @@
                             <!--<td><form onsubmit="return checkIn(<%=campaign.mapObject[i].lattitude%>, <%=campaign.mapObject[i].longitude%>)" action="/user/addobject/<%=campaign.mapObject[i]._id%>?_method=PUT" method="POST">
                             <button onClick="checkIn(<%=campaign.mapObject[i].lattitude%>, <%=campaign.mapObject[i].longitude%>)" type="submit" class="btn btn-md btn-primary apsilankiau">Apsilankiau</button>
                             </form></td>-->
-                            <td><input id="rakt" nr="<%=j+1%>" type="text" placeholder="Įveskite raktažodį"></td>
+                            <td>
+                              <input id="rakt" nr="<%=j+1%>" type="text" placeholder="Įveskite raktažodį">           
+                              <button id="buta" type="submit" class="btn btn-md btn-primary apsilankiau buta">
+                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                              </button>
+                            </td>
                             <td class="lattitude"><%= campaign.mapObject[i].lattitude%></td>
                             <td class="longitude"><%= campaign.mapObject[i].longitude%></td>
                         </tr>
@@ -282,10 +287,9 @@
     form.submit();
 }
 
-  document.getElementById("rakt")
-    .addEventListener("keyup", function(event) {
+  document.getElementById("buta")
+    .addEventListener("click", function(event) {
     event.preventDefault();
-    if (event.keyCode === 13) {
         var val = document.getElementById("rakt").value;
         var nr = document.getElementById("rakt").getAttribute("nr");
         var objid = document.getElementsByClassName("objid")[nr-1].innerHTML;
@@ -296,7 +300,6 @@
         } else {
           alert("Raktažodis netinkamas");
         }
-      }
   });
 </script>
 

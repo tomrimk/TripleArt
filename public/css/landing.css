@@ -478,6 +478,15 @@ body,
   cursor: pointer;
 }
 
+#rakt {
+  height: 34px;
+}
+
+.buta {
+  border-radius: 0 !important;
+  vertical-align: initial !important;
+}
+
 .objectTable {
   background: white;
   width: 100% !important;
