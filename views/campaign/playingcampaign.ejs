@@ -20,6 +20,7 @@
                     <tr class="checked obj">
                       <td><%= i+1%>.</td>
                       <td class="name"><%= campaign.mapObject[i].name%></td>
+                      <td></td>
                       <td class="lattitude"><%= campaign.mapObject[i].lattitude%></td>
                       <td class="longitude"><%= campaign.mapObject[i].longitude%></td>
                       <td></td>
@@ -35,9 +36,10 @@
                       <tr class="obj">
                           <td><%= j+1%>.</td>
                           <td class="name"><%= campaign.mapObject[i].name%></td>
-                          <td><form onsubmit="return checkIn(<%=campaign.mapObject[i].lattitude%>, <%=campaign.mapObject[i].longitude%>)" action="/user/addobject/<%=campaign.mapObject[i]._id%>?_method=PUT" method="POST">
+                          <!--<td><form onsubmit="return checkIn(<%=campaign.mapObject[i].lattitude%>, <%=campaign.mapObject[i].longitude%>)" action="/user/addobject/<%=campaign.mapObject[i]._id%>?_method=PUT" method="POST">
                           <button onClick="checkIn(<%=campaign.mapObject[i].lattitude%>, <%=campaign.mapObject[i].longitude%>)" type="submit" class="btn btn-md btn-primary apsilankiau">Apsilankiau</button>
-                          </form><td>
+                          </form></td>-->
+                          <td><input id="rakt" type="text" placeholder="Įveskite raktažodį"></td>
                           <td class="lattitude"><%= campaign.mapObject[i].lattitude%></td>
                           <td class="longitude"><%= campaign.mapObject[i].longitude%></td>
                       </tr>
@@ -253,6 +255,16 @@
 
   navigator.geolocation.getCurrentPosition(success, error);
 }
+</script>
+
+<script>
+  document.getElementById("rakt")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        alert("HA");
+    }
+});
 </script>
 
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQJ2TeX4CKtS00G-PbUMSuKjZ8fc-fyQQ&callback=initMap">

@@ -4,6 +4,7 @@ const mapObjectSchema = new mongoose.Schema({
   name: String,
   lattitude: Number,
   longitude: Number,
+  raktazodis: String,
   icon: { type: String, default: 'images/marker.png' },
   points: { type: Number, default: 0 },
   checked: { type: Boolean, default: false }

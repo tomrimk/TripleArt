@@ -38,6 +38,7 @@ ejsLint('/views/campaign', '-d=%');
 
 require('./routes/campaign.js')(app, passport);
 require('./routes/atsiliepimai.js')(app, passport);
+require('./routes/raktazodis.js')(app, passport);
 require('./routes/index.js')(app, passport);
 
 const PORT = process.env.PORT || 3000;

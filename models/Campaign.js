@@ -17,7 +17,8 @@ const CampaignScheme = new mongoose.Schema({
       },
       name: String,
       lattitude: Number,
-      longitude: Number
+      longitude: Number,
+      raktazodis: String
     }
   ],
   sukurimoData: {
