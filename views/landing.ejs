@@ -6,7 +6,9 @@
           <% if(!user) { %>
             <a id="prisijungimas" class="btn btn-lg btn-default">Išbandyti demo</a>
           <%} else { %>
-            <a href="/campaign/<%= campaigns[0]._id%>" type="button" class="btn btn-lg">Išbandyti demo</a>
+            <% if(campaigns.length) {%>
+              <a href="/campaign/<%= campaigns[0]._id%>" type="button" class="btn btn-lg">Išbandyti demo</a>
+            <%}%>
           <%}%>
       </div>
       <div class="col-lg-6">

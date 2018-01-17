@@ -288,10 +288,8 @@
     if (event.keyCode === 13) {
         var val = document.getElementById("rakt").value;
         var nr = document.getElementById("rakt").getAttribute("nr");
-        console.log(nr);
         var objid = document.getElementsByClassName("objid")[nr-1].innerHTML;
         var raktas = document.getElementsByClassName("objraktas")[nr-1].innerHTML;
-        console.log(objid);
         if(val == raktas) {
           post('/playingcampaign/'+ objid);
           alert("Sėkmingai pridėta");
