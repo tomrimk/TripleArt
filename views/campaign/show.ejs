@@ -1,7 +1,15 @@
 <% include ../partials/header %>
 <div class="container-fluid showing">
 <h1 id="campaignTitle"><%= campaign.title%></h1>
-    <div class="row mapRow">
+        
+    <div class="row mapRow nuotraukos">
+    <% if(!user) {%>
+          <a id="prisijungimas" class="btn btn-lg btn-default">Pradėti</a>
+        <%} else {%>
+          <form style="padding: 20px;"  action="/user/<%= user._id%>/addcampaign/<%= campaign._id%>?_method=PUT" method="POST">
+            <button class="btn btn-lg btn-default" type="submit">Pradėti</button>
+          </form>
+        <%}%>
       <div class="col-lg-7 mapDiv">
         <h2>Iššūkio objektai</h2>
         <div id="pagalbinis" style="overflow-y: auto">
@@ -31,13 +39,6 @@
           <img class="center-block img-responsive" src="/images/candy.jpg" alt="">
         </div>
         <h4>Galioja iki: 2018-01-18</h4>
-        <% if(!user) {%>
-          <a id="prisijungimas" class="btn btn-lg btn-default">Pradėti</a>
-        <%} else {%>
-          <form action="/user/<%= user._id%>/addcampaign/<%= campaign._id%>?_method=PUT" method="POST">
-            <button class="btn btn-lg btn-default" type="submit">Pradėti</button>
-          </form>
-        <%}%>
       </div>
     </div>
 
