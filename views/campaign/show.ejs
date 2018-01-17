@@ -47,39 +47,8 @@
       </div>
     </div>
 
-    <div id="myModal" class="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <span class="close">&times;</span>
-          <h2>Norėdami tęsti, prisijunkite</h2>
-        </div>
-        <div class="modal-body" style="padding: 50px">
-          <a href="/auth/facebook" class="btn btn-primary btn-block"><span class="fa fa-facebook"></span> <strong>Tęsti su Facebook</strong></a>
-        </div>
-      </div>
-    </div>
-
 <% include ../partials/footer %>
- 
-<script>
-    var modal = document.getElementById('myModal');
-    var btn = document.getElementById("prisijungimas");
-    var span = document.getElementsByClassName("close")[0];
 
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-</script>
 
 <script>
 function initMap(){

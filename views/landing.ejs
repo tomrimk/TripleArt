@@ -3,7 +3,11 @@
     <div class="row helloDiv">
       <div class="col-lg-6 ">
           <h1>Pritraukite keliautojus ir skatinkite juos sugrįžti. Ir visa tai - be didelio vargo!</h1>
-          <a href="/campaign/<%= campaigns[0]._id%>" type="button" class="btn btn-lg">Išbandyti demo</a>
+          <% if(!user) { %>
+            <a id="prisijungimas" class="btn btn-lg btn-default">Išbandyti demo</a>
+          <%} else { %>
+            <a href="/campaign/<%= campaigns[0]._id%>" type="button" class="btn btn-lg">Išbandyti demo</a>
+          <%}%>
       </div>
       <div class="col-lg-6">
           <img src="/images/ltmap.png" class="img-responsive">
@@ -40,7 +44,11 @@
               <div class="well">
                 <img src="/images/demola.png" alt="">
                 <h2><%= campaigns[i].title%></h2>
-                <a class="btn btn-lg btn-primary" href="/campaign/<%=campaigns[i]._id%>">Plačiau</a>
+                <% if(!user) { %>
+                  <a id="prisijungimas2" class="btn btn-lg btn-primary">Išbandyti demo</a>
+                <%} else { %>
+                  <a class="btn btn-lg btn-primary" href="/campaign/<%=campaigns[i]._id%>">Plačiau</a>
+                <%}%>
               </div>
           </div>
         <%}%>
@@ -80,4 +88,54 @@
         <p>Vilniaus kolegijos programų sistemų 3 kurso studentas</p>
       </div>
     </div>
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Norėdami tęsti, prisijunkite</h2>
+        </div>
+        <div class="modal-body" style="padding: 50px">
+          <a href="/auth/facebook" class="btn btn-primary btn-block"><span class="fa fa-facebook"></span> <strong>Tęsti su Facebook</strong></a>
+        </div>
+      </div>
+    </div>
 <% include partials/footer %>
+
+<script>
+    var modal = document.getElementById('myModal');
+    var btn = document.getElementById("prisijungimas");
+    var span = document.getElementsByClassName("close")[0];
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    var modal = document.getElementById('myModal');
+    var btn2 = document.getElementById("prisijungimas2");
+    var span = document.getElementsByClassName("close")[0];
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    btn2.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+</script>
