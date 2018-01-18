@@ -620,4 +620,17 @@ body,
   margin-bottom: 15px !important;
 }
 
+.raktazodis {
+  text-align: center;
+  color: white;
+}
+
+.raktazodis h4 {
+  margin-top: 40px;
+}
+
+.raktazodis strong {
+  text-decoration: underline;
+}
+
 /* END OF FEEDBACK ROW */
