@@ -1,0 +1,44 @@
+<% include ../partials/header %>
+<a href="/issukis/<%= issukis._id%>/objektas/new">Pridėti objektą</a>
+<h2><%= issukis.pavadinimas%></h2>
+<% var c = 0%>
+<% for(var i = 0; i< issukis.objektai.length; i++) {%>
+  <%if(issukis.objektai[i].checked == true) {%>
+    <%=c+1;%>
+  <%} else {%>
+    <%continue;%>
+  <%}%>
+<%}%>
+
+<h2>Objektai: <%=c%> / <%= issukis.objektai.length%></h2>
+
+<% issukis.objektai.forEach(objektas => { %>
+  <div class="well">
+    <h2>Pavadinimas: <%= objektas.pavadinimas%></h2>
+    <% if(objektas.mode == "QR") {%>
+      <video id="preview"></video>
+    <%} else {%>
+      <form action="/issukis/<%=issukis._id%>/objektas/<%=objektas._id%>?_method=PUT" method="POST">
+        <button class="btn btn-lg btn-primary" type="submit">GPS</button>
+      </form>
+    <%}%>
+  </div>
+<%})%>
+
+</body>
+
+<script type="text/javascript">
+      let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+      scanner.addListener('scan', function (content) {
+        console.log(content);
+      });
+      Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+          scanner.start(cameras[0]);
+        } else {
+          console.error('No cameras found.');
+        }
+      }).catch(function (e) {
+        console.error(e);
+      });
+    </script>

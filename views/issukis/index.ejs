@@ -1,0 +1,14 @@
+<% include ../partials/header %>
+  
+  <% issukiai.forEach(issukis => { %>
+    <a href="/issukis/<%=issukis._id%>">
+      <div class="well">
+        <h2>Pavadinimas: <strong><%=issukis.pavadinimas%></strong></h2>
+        <h2>Aprasymas: <strong><%=issukis.aprasymas%></strong></h2>
+        <h2>Prizas: <strong><%=issukis.prizas%></strong></h2>
+        <p>Sukurta: <%= moment(issukis.sukurimoData).format('ll')%></p>
+      </div>
+    </a>
+  <%})%>
+  
+<% include ../partials/footer %>

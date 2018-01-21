@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+
+<form action="/issukis" method="POST" class="form-horizontal">
+  <div class="form-group">
+    <label for="pavadinimas" class="col-sm-2 control-label">Pavadinimas</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="pavadinimas" name="issukis[pavadinimas]">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="aprasymas" class="col-sm-2 control-label">Aprašymas</label>
+    <div class="col-sm-10">
+      <textarea id="aprasymas" class="form-control" rows="8" name="issukis[aprasymas]"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="prizas" class="col-sm-2 control-label">Prizas</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="prizas" name="issukis[prizas]">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Sukurti</button>
+    </div>
+  </div>
+</form>
+
+<% include ../partials/footer %>

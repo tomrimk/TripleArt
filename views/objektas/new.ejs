@@ -1,0 +1,47 @@
+<% include ../partials/header %>
+
+  <div class="container-fluid">
+    <div class="row center-block">
+      <form action="/issukis/<%=issukis._id%>" method="POST">
+        <div class="col-md-12 col-lg-12 col-sm12">
+          <h2>Naujo objekto kūrimas</h2>
+          <div class="form-group center-block">
+            <input class="form-control" type="text" name="objektas[pavadinimas]" placeholder="Pavadinimas">
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm12">
+          <div class="form-group center-block">
+            <input class="form-control" id="lattitude" type="text" name="objektas[lattitude]" placeholder="Lattitude" required>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm12">
+          <div class="form-group center-block">
+            <input class="form-control" id="longitude" type="text" name="objektas[longitude]" placeholder="Longitude" required>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm12">
+          <div class="form-group center-block">
+            <input class="form-control" id="longitude" type="text" name="objektas[nuoroda]" placeholder="Nuoroda" required>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm12">
+          <div class="form-group center-block">
+            <div class="radio-inline">
+              <label><input type="radio" name="objektas[mode]" value="GPS">GPS</label>
+            </div>
+            <div class="radio-inline">
+              <label><input type="radio" name="objektas[mode]" value="QR">QR</label>
+            </div>            
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm12">
+          <div class="form-group center-block">
+            <textarea rows="5" class="form-control" placeholder="Kaip pasiekti?" name="objektas[informacija]"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-lg btn-primary">Pridėti</button>
+      </form>
+    </div>
+  </div>
+
+<% include ../partials/header %>

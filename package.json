@@ -19,15 +19,19 @@
     "ejs": "^2.5.7",
     "ejs-lint": "^0.3.0",
     "express": "^4.16.2",
+    "geolocation": "^0.2.0",
     "instascan": "^1.0.0",
     "method-override": "^2.3.10",
     "moment": "^2.20.1",
     "mongoose": "^4.13.7",
     "mongoose-double": "0.0.1",
+    "navigator": "^1.0.1",
+    "node-where": "^1.1.0",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
-    "qr-image": "^3.2.0"
+    "qr-image": "^3.2.0",
+    "qrcode-reader.js": "^1.0.3"
   },
   "devDependencies": {
     "nodemon": "^1.13.3"

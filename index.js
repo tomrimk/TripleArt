@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const passport = require('passport');
 const cookieSession = require('cookie-session');
 const keys = require('./keys/keys');
 const cookieParser = require('cookie-parser');
@@ -11,7 +10,6 @@ const ejsLint = require('ejs-lint');
 
 mongoose.connect(keys.mongoDbUri);
 
-require('./config/passport')(passport);
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -23,23 +21,21 @@ app.use(
     keys: [keys.cookieKey]
   })
 );
-app.use(passport.initialize());
-app.use(passport.session());
+
 app.use(function(req, res, next) {
   res.locals.loggedUser = req.user;
   next();
 });
-// set up our express application
-app.use(cookieParser()); // read cookies (needed for auth)
 
-app.set('view engine', 'ejs'); // set up ejs for templating
+app.use(cookieParser());
+
+app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
-ejsLint('/views/campaign', '-d=%');
+ejsLint('/views/issukis', '-d=%');
 
-require('./routes/campaign.js')(app, passport);
-require('./routes/atsiliepimai.js')(app, passport);
-require('./routes/raktazodis.js')(app, passport);
-require('./routes/index.js')(app, passport);
+require('./routes/issukis.js')(app);
+require('./routes/objektas.js')(app);
+require('./routes/index.js')(app);
 
 const PORT = process.env.PORT || 3000;
 
