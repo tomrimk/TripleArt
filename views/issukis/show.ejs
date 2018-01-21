@@ -16,7 +16,7 @@
   <div class="well">
     <h2>Pavadinimas: <%= objektas.pavadinimas%></h2>
     <% if(objektas.mode == "QR") {%>
-      <video id="preview"></video>
+      <button class="btn btn-lg btn-primary" id="kamera">QR</button>
     <%} else {%>
       <form action="/issukis/<%=issukis._id%>/objektas/<%=objektas._id%>?_method=PUT" method="POST">
         <button class="btn btn-lg btn-primary" type="submit">GPS</button>
@@ -25,7 +25,39 @@
   </div>
 <%})%>
 
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body" style="padding: 50px">
+        <video id="preview"></video>
+      </div>
+  </div>
+</div>
+
 </body>
+
+<script>
+    var modal = document.getElementById('myModal');
+    var btn = document.getElementById("kamera");
+    var span = document.getElementsByClassName("close")[0];
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+</script>
 
 <script type="text/javascript">
       let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
