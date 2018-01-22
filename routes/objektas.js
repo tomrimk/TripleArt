@@ -37,6 +37,10 @@ module.exports = app => {
 
   // OBJEKTO ŽYMĖJIMASIS
   app.put('/issukis/:id/objektas/:oid', (req, res) => {
-    Objektas.findById(req.params.oid, (err, objektas) => {});
+    Objektas.findById(req.params.oid, (err, objektas) => {
+      objektas.checked = true;
+      objektas.save();
+      res.redirect('back');
+    });
   });
 };

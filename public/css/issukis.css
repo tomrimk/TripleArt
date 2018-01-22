@@ -1,0 +1,90 @@
+/* INDEX */
+.issukisRow {
+  margin-bottom: 25px;
+}
+
+.issukisRow {
+  padding: 0;
+  background: rgb(224, 224, 224);
+}
+
+.issukisRow div {
+  padding: 0;
+}
+
+.issukisRow h2 {
+  color: black;
+}
+
+.issukisRow a {
+  color: black;
+}
+
+.issukisRow img {
+  display: inline-block !important;
+}
+/* SHOW */
+.objectRow {
+  max-width: 600px;
+  display: block;
+  margin: 0 auto;
+  background: rgb(247, 243, 243);
+  margin-top: 25px;
+}
+
+.marker {
+  width: 100px;
+  height: auto;
+  border-left: 1px solid rgb(192, 192, 192);
+  padding: 10px;
+  float: right;
+}
+
+.markerForm {
+  float: right;
+}
+
+.objectRow h2 {
+  display: inline-block;
+  font-size: 1.7em;
+  padding: 10px;
+  color: black;
+  max-width: 250px;
+  word-wrap: break-word;
+}
+
+.objectRow h2:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 600px) {
+  .objectRow h2 {
+    max-width: 450px;
+  }
+}
+
+@media (max-width: 400px) {
+  .objectRow h2 {
+    max-width: 200px;
+  }
+}
+
+.informacija {
+  display: block;
+  margin: 0 auto;
+  max-width: 600px;
+  background: #e4e0e0;
+}
+
+.informacija p {
+  padding: 5px;
+}
+
+.checked {
+  background: #369e36 !important;
+  color: white !important;
+}
+
+.checked h2 {
+  color: white;
+}

@@ -1,14 +1,19 @@
 <% include ../partials/header %>
-  
+<div class="container">
+  <h1>Iššūkiai</h1>
   <% issukiai.forEach(issukis => { %>
+  <div class="row issukisRow">
     <a href="/issukis/<%=issukis._id%>">
-      <div class="well">
-        <h2>Pavadinimas: <strong><%=issukis.pavadinimas%></strong></h2>
-        <h2>Aprasymas: <strong><%=issukis.aprasymas%></strong></h2>
-        <h2>Prizas: <strong><%=issukis.prizas%></strong></h2>
-        <p>Sukurta: <%= moment(issukis.sukurimoData).format('ll')%></p>
+      <div class="col-lg-4">
+        <img style="width: 100%" class="img-responsive" src="images/krastas.jpg" alt="">
+      </div>
+      <div class="col-lg-8">
+        <h2><%=issukis.pavadinimas%></h2>
       </div>
     </a>
+  </div>
   <%})%>
+  
+</div>
   
 <% include ../partials/footer %>

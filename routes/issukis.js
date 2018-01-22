@@ -33,12 +33,26 @@ module.exports = app => {
   // TAM TIKRO IŠŠŪKIO ATVAIZDAVIMAS
   app.get('/issukis/:id', (req, res) => {
     Issukis.findById(req.params.id)
-      .populate('objektai')
+      .populate({
+        path: 'objektai',
+        match: { checked: { $eq: false } }
+      })
       .exec((err, issukis) => {
         if (err) {
           res.json(err);
         } else {
-          res.render('issukis/show', { issukis });
+          Issukis.findById(req.params.id)
+            .populate({
+              path: 'objektai',
+              match: { checked: { $eq: true } }
+            })
+            .exec((err, pazymeti) => {
+              if (err) {
+                res.json(err);
+              } else {
+                res.render('issukis/show', { issukis, pazymeti });
+              }
+            });
         }
       });
   });
