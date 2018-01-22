@@ -25,6 +25,7 @@ module.exports = app => {
       if (err) {
         res.json(err);
       } else {
+        console.log(req.session.id);
         res.render('issukis/index', { issukiai });
       }
     });
@@ -55,5 +56,27 @@ module.exports = app => {
             });
         }
       });
+  });
+
+  // VARTOTOJO PRIDĖJIMAS PRIE DUOMBAZĖS
+  app.post('/issukis/:id/user', (req, res) => {
+    Issukis.findById(req.params.id, (err, issukis) => {
+      if (err) {
+        res.json(err);
+      } else {
+        const obj = {
+          sessionid: req.session.id
+        };
+        User.create(obj, (err, user) => {
+          if (err) {
+            res.json(err);
+          } else {
+            user.issukis.push(issukis);
+            user.save();
+            res.redirect('/issukis/' + req.params.id);
+          }
+        });
+      }
+    });
   });
 };

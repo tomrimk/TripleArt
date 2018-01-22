@@ -3,17 +3,16 @@
   <h1>Iššūkiai</h1>
   <% issukiai.forEach(issukis => { %>
   <div class="row issukisRow">
-    <a href="/issukis/<%=issukis._id%>">
+  <form action="issukis/<%=issukis._id%>/user" method="POST">
       <div class="col-lg-4">
         <img style="width: 100%" class="img-responsive" src="images/krastas.jpg" alt="">
       </div>
       <div class="col-lg-8">
-        <h2><%=issukis.pavadinimas%></h2>
+        <button type="submit"><%=issukis.pavadinimas%></button>
       </div>
-    </a>
+  </form>
   </div>
   <%})%>
-  
 </div>
   
 <% include ../partials/footer %>

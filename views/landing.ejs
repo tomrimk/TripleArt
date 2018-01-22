@@ -1,9 +1,9 @@
-<% include partials/header %>
+<% include partials/landingheader %>
   <div class="container-fluid">
     <div class="row helloDiv">
       <div class="col-lg-6 ">
-          <h1>Keliaukite, pažinkite Lietuvą ir gaukite vertingų prizų!</h1>
-          <a href="#" type="button" class="btn btn-lg">Išbandyti demo</a>
+          <h1>Skatinkite žmones keliauti kurdami iššūkius ir visą tai - be didelio vargo!</h1>
+          <a href="/issukis" type="button" class="btn btn-lg">Peržiūrėti iššūkius</a>
       </div>
       <div class="col-lg-6">
           <img src="/images/ltmap.png" class="img-responsive">
@@ -30,30 +30,6 @@
           <img src="/images/skatinimas.png">
           <p>Galimybę pritraukti daugiau keliautojų ir padėti skatinti turizmą Lietuvoje.</p>
         </div>
-      </div>
-    </div>
-    <div id="demo" class="row demoRow">
-      
-        <h1>Išbandykite demo</h1>
-        <% for(var i = 0; i < campaigns.length; i++) {%>
-        <div class="col-lg-<%=12/campaigns.length%>">
-              <div class="well">
-                <img src="/images/demola.png" alt="">
-                <h2><%= campaigns[i].title%></h2>
-                <% if(!user) { %>
-                  <a id="prisijungimas2" class="btn btn-lg btn-primary">Išbandyti demo</a>
-                <%} else { %>
-                  <a class="btn btn-lg btn-primary" href="/campaign/<%=campaigns[i]._id%>">Plačiau</a>
-                <%}%>
-              </div>
-          </div>
-        <%}%>
-      
-    </div>
-    <div class="row roadMapDiv">
-      <div class="col-lg-12 ">
-        <h1>Veiksmų planas</h1>
-        <img src="/images/roadmap.jpg" class="img-responsive" alt="">
       </div>
     </div>
     <div class="row teamInfo">
@@ -84,6 +60,13 @@
         <p>Vilniaus kolegijos programų sistemų 3 kurso studentas</p>
       </div>
     </div>
+    <div class="row roadMapDiv">
+      <div class="col-lg-12 ">
+        <h1>Veiksmų planas</h1>
+        <img src="/images/roadmap.jpg" class="img-responsive" alt="">
+      </div>
+    </div>
+    
 
     <div id="myModal" class="modal">
       <div class="modal-content">
@@ -96,7 +79,7 @@
         </div>
       </div>
     </div>
-<% include partials/footer %>
+<% include partials/landingfooter %>
 
 <script>
     var modal = document.getElementById('myModal');

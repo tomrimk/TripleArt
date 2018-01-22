@@ -7,27 +7,33 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const ejsLint = require('ejs-lint');
+const session = require('express-session');
+const uuid = require('uuid/v4');
+const passport = require('passport');
 
 mongoose.connect(keys.mongoDbUri);
 
+app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.locals.moment = require('moment');
 
 app.use(
-  cookieSession({
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [keys.cookieKey]
+  session({
+    genid: function() {
+      return uuid(); // use UUIDs for session IDs
+    },
+    secret: keys.cookieKey,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }
   })
 );
 
-app.use(function(req, res, next) {
-  res.locals.loggedUser = req.user;
-  next();
-});
-
-app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));

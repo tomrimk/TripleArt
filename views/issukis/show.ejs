@@ -1,46 +1,69 @@
 <% include ../partials/header %>
 <script>
-  function openQRCamera(node) {
-  var reader = new FileReader();
-  reader.onload = function() {
-    node.value = "";
-    qrcode.callback = function(res) {
-      if(res instanceof Error) {
-        alert("No QR code found. Please make sure the QR code is within the camera's frame and try again.");
-      } else {
-        node.parentNode.previousElementSibling.value = res;
-      }
-    };
-    qrcode.decode(reader.result);
-  };
-  reader.readAsDataURL(node.files[0]);
-}
+  function post(path, params, method) {
+      method = method || "post";
 
-function showQRIntro() {
-  return confirm("Use your camera to take a picture of a QR code.");
-}
+      var form = document.createElement("form");
+      form.setAttribute("method", method);
+      form.setAttribute("action", path);
+
+      document.body.appendChild(form);
+      form.submit();
+  }
+
+  function openQRCamera(node, objid) {
+    var reader = new FileReader();
+    reader.onload = function() {
+      node.value = "";
+      qrcode.callback = function(res) {
+        if(res instanceof Error) {
+          alert("QR kodas nerastas. Prašome patikrinti ar buvo teisingai nufotografuotas kodas ir pabandykite dar kartą.");
+        } else {
+          if(res == objid) {
+            post('/objektas/'+objid);
+          } else {
+            alert("Deja, bet nuskaitytas kodas nepriklauso šiam objektui");
+          }
+        }
+      };
+      qrcode.decode(reader.result);
+    };
+    reader.readAsDataURL(node.files[0]);
+  }
+
+  function showQRIntro() {
+    return confirm("Pasinaudokite kamera, kad galėtumėte nufotografuoti objekto QR kodą.");
+  }
 </script>
 <div class="container">
   
   <a href="/issukis/<%= issukis._id%>/objektas/new">Pridėti objektą</a>
   <h2><%= issukis.pavadinimas%></h2>
   <img class="img-responsive" src="/images/krastas.jpg" alt="">
-  <h2>Objektai: <%=pazymeti.objektai.length%> / <%= issukis.objektai.length + pazymeti.objektai.length%></h2>
+  <%if(pazymeti.objektai.length == issukis.objektai.length + pazymeti.objektai.length) {%>
+    <button id="prizas" class="btn btn-primary btn-lg">Atsiimti prizą</button>
+  <%} else {%>
+    <h2>Objektai: <%=pazymeti.objektai.length%> / <%= issukis.objektai.length + pazymeti.objektai.length%></h2>
+  <%}%>
 
   <p><%= issukis.aprasymas%></p>
-  <h2 class="text-center">Aplankyk</h2>
+  <%if(issukis.objektai.length) {%>
+    <h2 class="text-center">Aplankykite</h2>
+  <%}%>
   <% issukis.objektai.forEach(objektas => { %>
       <div class="row objectRow">
           <a href="<%= objektas.nuoroda%>" target="_blank"><h2><%= objektas.pavadinimas%></h2></a>
         <% if(objektas.mode == "QR") {%>
-            <input class="markerForm marker" type="image" src="/images/reader.png" border="0" alt="Submit" />
-            <input type="file" accept="image/*" capture="camera">
+        <label for="file-upload" class="custom-file-upload markerForm">
+          <img class=" marker" src="/images/reader.png" alt="">
+        </label>            
+        <input id="file-upload" type='file' accept="image/*" capture='environment' onchange="openQRCamera(this, '<%= objektas._id%>');" tabindex='-1'>
       </div>
           <div class="informacija">
             <p><strong>Kaip rasti: </strong> <%= objektas.informacija %></p>
           </div>
         <%} else {%>
-            <form class="markerForm" action="/issukis/<%=issukis._id%>/objektas/<%=objektas._id%>?_method=PUT" method="POST">
+            <form class="markerForm" action="/objektas/<%=objektas._id%>" method="POST">
               <input class="marker" type="image" src="/images/marker.png" border="0" alt="Submit" />
             </form>
       </div>
@@ -55,11 +78,38 @@ function showQRIntro() {
         </div>
     <%})%>
   <%}%>
-
-  <input type='text' size='16' placeholder="Tracking Code" class='qrcode-text'><label class='qrcode-text-btn'><input type='file' accept="image/*" capture='environment' onclick="return showQRIntro();" onchange="openQRCamera(this);" tabindex='-1'></label> 
-  <input type='button' value="Go" disabled>
-  
 </div>
-
+<div id="myModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Jei norite atsiimti prizą, parodykite šį kodą įmonės darbuotojui*</h2>
+        </div>
+        <div class="modal-body">
+          <img class="center-block" src="/images/prizoqr.png" alt="">
+          <h6 class="text-center">*Prizų kiekis ribotas</h6>
+        </div>
+      </div>
+    </div>
 </body>
 
+<script>
+    var modal = document.getElementById('myModal');
+    var btn = document.getElementById("prizas");
+    var span = document.getElementsByClassName("close")[0];
+
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+    }
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+</script>

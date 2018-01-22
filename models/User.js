@@ -2,26 +2,17 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  facebook: {
-    id: String,
-    token: String,
-    email: String,
-    name: String,
-    username: String
-  },
-  campaigns: [
+  sessionid: String,
+  issukis: [
     {
-      id: String,
-      registered: Boolean,
-      finished: Boolean
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Issukis'
     }
   ],
-  mapObjects: [
+  objektai: [
     {
-      id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'MapObject'
-      }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Objektai'
     }
   ]
 });

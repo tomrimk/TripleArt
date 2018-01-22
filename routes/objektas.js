@@ -2,7 +2,6 @@ const User = require('../models/User');
 const Objektas = require('../models/Objektas');
 const Issukis = require('../models/Issukis');
 const vieta = require('../config/vieta');
-var geolocation = require('geolocation');
 
 module.exports = app => {
   // OBJEKTŲ PRIDĖJIMO FORMA
@@ -36,7 +35,7 @@ module.exports = app => {
   });
 
   // OBJEKTO ŽYMĖJIMASIS
-  app.put('/issukis/:id/objektas/:oid', (req, res) => {
+  app.post('/objektas/:oid', (req, res) => {
     Objektas.findById(req.params.oid, (err, objektas) => {
       objektas.checked = true;
       objektas.save();
