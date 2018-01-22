@@ -15,6 +15,10 @@ module.exports = app => {
     });
   });
 
+  app.get('/test', (req, res) => {
+    res.render('issukis/test');
+  });
+
   // NEEGZISTUOJANTIEMS PUSLAPIAMS
   app.get('*', (req, res) => {
     res.send('Sis puslapis neegzistuoja');

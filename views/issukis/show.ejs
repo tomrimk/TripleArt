@@ -1,4 +1,25 @@
 <% include ../partials/header %>
+<script>
+  function openQRCamera(node) {
+  var reader = new FileReader();
+  reader.onload = function() {
+    node.value = "";
+    qrcode.callback = function(res) {
+      if(res instanceof Error) {
+        alert("No QR code found. Please make sure the QR code is within the camera's frame and try again.");
+      } else {
+        node.parentNode.previousElementSibling.value = res;
+      }
+    };
+    qrcode.decode(reader.result);
+  };
+  reader.readAsDataURL(node.files[0]);
+}
+
+function showQRIntro() {
+  return confirm("Use your camera to take a picture of a QR code.");
+}
+</script>
 <div class="container">
   
   <a href="/issukis/<%= issukis._id%>/objektas/new">Pridėti objektą</a>
@@ -13,6 +34,7 @@
           <a href="<%= objektas.nuoroda%>" target="_blank"><h2><%= objektas.pavadinimas%></h2></a>
         <% if(objektas.mode == "QR") {%>
             <input class="markerForm marker" type="image" src="/images/reader.png" border="0" alt="Submit" />
+            <input type="file" accept="image/*" capture="camera">
       </div>
           <div class="informacija">
             <p><strong>Kaip rasti: </strong> <%= objektas.informacija %></p>
@@ -33,7 +55,11 @@
         </div>
     <%})%>
   <%}%>
+
+  <input type='text' size='16' placeholder="Tracking Code" class='qrcode-text'><label class='qrcode-text-btn'><input type='file' accept="image/*" capture='environment' onclick="return showQRIntro();" onchange="openQRCamera(this);" tabindex='-1'></label> 
+  <input type='button' value="Go" disabled>
   
 </div>
 
 </body>
+
