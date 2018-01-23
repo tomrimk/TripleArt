@@ -37,20 +37,20 @@
 </script>
 <div class="container">
   
-  <a href="/issukis/<%= issukis._id%>/objektas/new">Pridėti objektą</a>
+  <!--<a href="/issukis/<%= issukis._id%>/objektas/new">Pridėti objektą</a>-->
+  <img class="img-responsive center-block" src="/images/krastas.jpg" alt="">
   <h2><%= issukis.pavadinimas%></h2>
-  <img class="img-responsive" src="/images/krastas.jpg" alt="">
   <%if(pazymeti.objektai.length == issukis.objektai.length + pazymeti.objektai.length) {%>
     <button id="prizas" class="btn btn-primary btn-lg">Atsiimti prizą</button>
   <%} else {%>
-    <h2>Objektai: <%=pazymeti.objektai.length%> / <%= vartotojas.objektai.length + pazymeti.objektai.length%></h2>
+    <h2>Objektai: <%=pazymeti.objektai.length%> / <%= issukis.objektai.length + pazymeti.objektai.length%></h2>
   <%}%>
 
   <p><%= issukis.aprasymas%></p>
   <%if(issukis.objektai.length) {%>
     <h2 class="text-center">Aplankykite</h2>
   <%}%>
-  <% vartotojas.objektai.forEach(objektas => { %>
+  <% issukis.objektai.forEach(objektas => { %>
       <div class="row objectRow">
           <a href="<%= objektas.nuoroda%>" target="_blank"><h2><%= objektas.pavadinimas%></h2></a>
         <% if(objektas.mode == "QR") {%>
@@ -78,6 +78,9 @@
         </div>
     <%})%>
   <%}%>
+  <form action="/issukis/<%= issukis._id%>/over" method="post">
+    <button style="border-radius:0; margin-top:45px" class="center-block btn btn-lg btn-primary" type="submit">Pradėti iššūkį iš naujo</button>
+  </form>
 </div>
 <div id="myModal" class="modal">
       <div class="modal-content">

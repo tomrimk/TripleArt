@@ -36,29 +36,29 @@ module.exports = app => {
 
   // OBJEKTO ŽYMĖJIMASIS
   app.post('/issukis/:id/objektas/:oid', (req, res) => {
-    User.findOne({ sessionid: req.session.id })
-      .populate('objektai')
-      .exec((err, vartotojas) => {
-        if (err) {
-          res.json(err);
-        } else {
-          Objektas.findById(req.params.oid, (err, objektas) => {
-            if (err) {
-              res.json(err);
-            } else {
-              for (var i = 0; i < vartotojas.objektai.length; i++) {
-                if (vartotojas.objektai[i]._id == objektas._id) {
-                  console.log('Pažymėta' + vartotojas.objektai[i].checked);
-                  vartotojas.objektai[i].checked = true;
-                  break;
-                }
-              }
-              vartotojas.save();
-              res.redirect('back');
-            }
-          });
-        }
-      });
+    // User.findOne({ sessionid: req.session.id })
+    //   .populate('objektai')
+    //   .exec((err, vartotojas) => {
+    //     if (err) {
+    //       res.json(err);
+    //     } else {
+    //       Objektas.findById(req.params.oid, (err, objektas) => {
+    //         if (err) {
+    //           res.json(err);
+    //         } else {
+    //           for (var i = 0; i < vartotojas.objektai.length; i++) {
+    //             if (vartotojas.objektai[i]._id == objektas._id) {
+    //               console.log('Pažymėta' + vartotojas.objektai[i].checked);
+    //               vartotojas.objektai[i].checked = true;
+    //               break;
+    //             }
+    //           }
+    //           vartotojas.save();
+    //           res.redirect('back');
+    //         }
+    //       });
+    //     }
+    //   });
     // User.findOne({ sessionid: req.session.id }, (err, user) => {
     //   if (err) {
     //     res.json(err);
@@ -81,10 +81,10 @@ module.exports = app => {
     //     });
     //   }
     // });
+    Objektas.findById(req.params.oid, (err, objektas) => {
+      objektas.checked = true;
+      objektas.save();
+      res.redirect('back');
+    });
   });
-  // Objektas.findById(req.params.oid, (err, objektas) => {
-  //   objektas.checked = true;
-  //   objektas.save();
-  //   res.redirect('back');
-  // });
 };

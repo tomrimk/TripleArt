@@ -33,40 +33,66 @@ module.exports = app => {
 
   // TAM TIKRO IŠŠŪKIO ATVAIZDAVIMAS
   app.get('/issukis/:id', (req, res) => {
-    Issukis.findById(req.params.id, (err, issukis) => {
-      if (err) {
-        res.json(err);
-      } else {
-        User.findOne({ sessionid: req.session.id })
-          .populate({
-            path: 'objektai',
-            match: { checked: { $eq: false } }
-          })
-          .exec((err, vartotojas) => {
-            if (err) {
-              res.json(err);
-            } else {
-              User.findOne({ sessionid: req.session.id })
-                .populate({
-                  path: 'objektai',
-                  match: { checked: { $eq: true } }
-                })
-                .exec((err, pazymeti) => {
-                  if (err) {
-                    res.json(err);
-                  } else {
-                    res.render('issukis/show', {
-                      issukis,
-                      pazymeti,
-                      vartotojas
-                    });
-                  }
+    Issukis.findById(req.params.id)
+      .populate({
+        path: 'objektai',
+        match: { checked: { $eq: false } }
+      })
+      .exec((err, issukis) => {
+        if (err) {
+          res.json(err);
+        } else {
+          Issukis.findById(req.params.id)
+            .populate({
+              path: 'objektai',
+              match: { checked: { $eq: true } }
+            })
+            .exec((err, pazymeti) => {
+              if (err) {
+                res.json(err);
+              } else {
+                res.render('issukis/show', {
+                  issukis,
+                  pazymeti
                 });
-            }
-          });
-      }
-    });
+              }
+            });
+        }
+      });
   });
+  // Issukis.findById(req.params.id, (err, issukis) => {
+  //   if (err) {
+  //     res.json(err);
+  //   } else {
+  //     User.findOne({ sessionid: req.session.id })
+  //       .populate({
+  //         path: 'objektai',
+  //         match: { checked: { $eq: false } }
+  //       })
+  //       .exec((err, vartotojas) => {
+  //         if (err) {
+  //           res.json(err);
+  //         } else {
+  //           User.findOne({ sessionid: req.session.id })
+  //             .populate({
+  //               path: 'objektai',
+  //               match: { checked: { $eq: true } }
+  //             })
+  //             .exec((err, pazymeti) => {
+  //               if (err) {
+  //                 res.json(err);
+  //               } else {
+  //                 res.render('issukis/show', {
+  //                   issukis,
+  //                   pazymeti,
+  //                   vartotojas
+  //                 });
+  //               }
+  //             });
+  //         }
+  //       });
+  //   }
+  // });
 
   // VARTOTOJO PRIDĖJIMAS PRIE DUOMBAZĖS
   app.post('/issukis/:id/user', (req, res) => {
@@ -104,6 +130,17 @@ module.exports = app => {
           }
         });
       }
+    });
+  });
+
+  // IŠŠŪKIO ĖJIMAS IŠ NAUJO
+  app.post('/issukis/:id/over', (req, res) => {
+    Objektas.find({}, (err, objektai) => {
+      objektai.forEach(obj => {
+        obj.checked = false;
+        obj.save();
+      });
+      res.redirect('/issukis');
     });
   });
 };
