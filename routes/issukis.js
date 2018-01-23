@@ -33,29 +33,39 @@ module.exports = app => {
 
   // TAM TIKRO IŠŠŪKIO ATVAIZDAVIMAS
   app.get('/issukis/:id', (req, res) => {
-    Issukis.findById(req.params.id)
-      .populate({
-        path: 'objektai',
-        match: { checked: { $eq: false } }
-      })
-      .exec((err, issukis) => {
-        if (err) {
-          res.json(err);
-        } else {
-          Issukis.findById(req.params.id)
-            .populate({
-              path: 'objektai',
-              match: { checked: { $eq: true } }
-            })
-            .exec((err, pazymeti) => {
-              if (err) {
-                res.json(err);
-              } else {
-                res.render('issukis/show', { issukis, pazymeti });
-              }
-            });
-        }
-      });
+    Issukis.findById(req.params.id, (err, issukis) => {
+      if (err) {
+        res.json(err);
+      } else {
+        User.findOne({ sessionid: req.session.id })
+          .populate({
+            path: 'objektai',
+            match: { checked: { $eq: false } }
+          })
+          .exec((err, vartotojas) => {
+            if (err) {
+              res.json(err);
+            } else {
+              User.findOne({ sessionid: req.session.id })
+                .populate({
+                  path: 'objektai',
+                  match: { checked: { $eq: true } }
+                })
+                .exec((err, pazymeti) => {
+                  if (err) {
+                    res.json(err);
+                  } else {
+                    res.render('issukis/show', {
+                      issukis,
+                      pazymeti,
+                      vartotojas
+                    });
+                  }
+                });
+            }
+          });
+      }
+    });
   });
 
   // VARTOTOJO PRIDĖJIMAS PRIE DUOMBAZĖS
@@ -67,13 +77,30 @@ module.exports = app => {
         const obj = {
           sessionid: req.session.id
         };
-        User.create(obj, (err, user) => {
+        User.findOne({ sessionid: req.session.id }, (err, user) => {
           if (err) {
             res.json(err);
           } else {
-            user.issukis.push(issukis);
-            user.save();
-            res.redirect('/issukis/' + req.params.id);
+            if (user) {
+              res.redirect('/issukis/' + req.params.id);
+            } else {
+              User.create(obj, (err, user) => {
+                if (err) {
+                  res.json(err);
+                } else {
+                  if (user.objektai == 0) {
+                    user.issukis.push(issukis);
+                    issukis.objektai.forEach(obj => {
+                      user.objektai.push(obj);
+                    });
+                    user.save();
+                  } else {
+                    user.save();
+                  }
+                  res.redirect('/issukis/' + req.params.id);
+                }
+              });
+            }
           }
         });
       }

@@ -112,3 +112,9 @@ input[type='file'] {
 body {
   margin-bottom: 50px;
 }
+
+.issukiopav {
+  border: 0 !important;
+  font-size: 25px !important;
+  background: inherit !important;
+}

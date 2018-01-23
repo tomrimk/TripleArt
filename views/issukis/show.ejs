@@ -11,7 +11,7 @@
       form.submit();
   }
 
-  function openQRCamera(node, objid) {
+  function openQRCamera(node, objid, issid) {
     var reader = new FileReader();
     reader.onload = function() {
       node.value = "";
@@ -20,7 +20,7 @@
           alert("QR kodas nerastas. Prašome patikrinti ar buvo teisingai nufotografuotas kodas ir pabandykite dar kartą.");
         } else {
           if(res == objid) {
-            post('/objektas/'+objid);
+            post('/issukis/' + issid + '/objektas/' + objid);
           } else {
             alert("Deja, bet nuskaitytas kodas nepriklauso šiam objektui");
           }
@@ -43,27 +43,27 @@
   <%if(pazymeti.objektai.length == issukis.objektai.length + pazymeti.objektai.length) {%>
     <button id="prizas" class="btn btn-primary btn-lg">Atsiimti prizą</button>
   <%} else {%>
-    <h2>Objektai: <%=pazymeti.objektai.length%> / <%= issukis.objektai.length + pazymeti.objektai.length%></h2>
+    <h2>Objektai: <%=pazymeti.objektai.length%> / <%= vartotojas.objektai.length + pazymeti.objektai.length%></h2>
   <%}%>
 
   <p><%= issukis.aprasymas%></p>
   <%if(issukis.objektai.length) {%>
     <h2 class="text-center">Aplankykite</h2>
   <%}%>
-  <% issukis.objektai.forEach(objektas => { %>
+  <% vartotojas.objektai.forEach(objektas => { %>
       <div class="row objectRow">
           <a href="<%= objektas.nuoroda%>" target="_blank"><h2><%= objektas.pavadinimas%></h2></a>
         <% if(objektas.mode == "QR") {%>
         <label for="file-upload" class="custom-file-upload markerForm">
           <img class=" marker" src="/images/reader.png" alt="">
         </label>            
-        <input id="file-upload" type='file' accept="image/*" capture='environment' onchange="openQRCamera(this, '<%= objektas._id%>');" tabindex='-1'>
+        <input id="file-upload" type='file' accept="image/*" capture='environment' onchange="openQRCamera(this, '<%= objektas._id%>', '<%=issukis._id%>');" tabindex='-1'>
       </div>
           <div class="informacija">
             <p><strong>Kaip rasti: </strong> <%= objektas.informacija %></p>
           </div>
         <%} else {%>
-            <form class="markerForm" action="/objektas/<%=objektas._id%>" method="POST">
+            <form class="markerForm" action="/issukis/<%=issukis._id%>/objektas/<%=objektas._id%>" method="POST">
               <input class="marker" type="image" src="/images/marker.png" border="0" alt="Submit" />
             </form>
       </div>

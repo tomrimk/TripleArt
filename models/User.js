@@ -12,7 +12,7 @@ const userSchema = new Schema({
   objektai: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Objektai'
+      ref: 'Objektas'
     }
   ]
 });
