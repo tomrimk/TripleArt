@@ -5,7 +5,11 @@
   <div class="row issukisRow">
   <form action="issukis/<%=issukis._id%>/user" method="POST">
       <div class="col-lg-4">
+      <%if(issukis.nuoroda) {%>
+        <img style="width: 100%" class="img-responsive" src="<%= issukis.nuoroda%>" alt="">
+      <%} else {%>
         <img style="width: 100%" class="img-responsive" src="images/krastas.jpg" alt="">
+      <%}%>
       </div>
       <div class="col-lg-8">
         <button class="issukiopav" type="submit"><%=issukis.pavadinimas%></button>

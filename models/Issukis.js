@@ -9,7 +9,7 @@ const IssukisScheme = new mongoose.Schema({
       ref: 'Objektas'
     }
   ],
-  prizas: String,
+  nuoroda: String,
   sukurimoData: {
     type: Date,
     default: Date.now

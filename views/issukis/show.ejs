@@ -38,7 +38,11 @@
 <div class="container">
   
   <!--<a href="/issukis/<%= issukis._id%>/objektas/new">Pridėti objektą</a>-->
-  <img class="img-responsive center-block" src="/images/krastas.jpg" alt="">
+  <%if(issukis.nuoroda) {%>
+    <img class="img-responsive center-block" src="<%= issukis.nuoroda%>" alt="">
+  <%} else {%>
+    <img class="img-responsive center-block" src="/images/krastas.jpg" alt="">
+  <%}%>
   <h2><%= issukis.pavadinimas%></h2>
   <%if(pazymeti.objektai.length == issukis.objektai.length + pazymeti.objektai.length) {%>
     <button id="prizas" class="btn btn-primary btn-lg">Atsiimti prizą</button>
@@ -81,17 +85,6 @@
   <form action="/issukis/<%= issukis._id%>/over" method="post">
     <button style="border-radius:0; margin-top:45px" class="center-block btn btn-lg btn-primary" type="submit">Pradėti iššūkį iš naujo</button>
   </form>
-
-  <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
-  <canvas id="canvas" hidden></canvas>
-  <div id="output" hidden>
-    <div id="outputMessage">No QR code detected.</div>
-    <div hidden>
-      <b>Data:</b>
-      <span id="outputData"></span>
-    </div>
-  </div>
-</div>
 <div id="myModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">
@@ -104,59 +97,6 @@
         </div>
       </div>
     </div>
-
-<script>
-    var video = document.createElement("video");
-    var canvasElement = document.getElementById("canvas");
-    var canvas = canvasElement.getContext("2d");
-    var loadingMessage = document.getElementById("loadingMessage");
-    var outputContainer = document.getElementById("output");
-    var outputMessage = document.getElementById("outputMessage");
-    var outputData = document.getElementById("outputData");
-
-    function drawLine(begin, end, color) {
-      canvas.beginPath();
-      canvas.moveTo(begin.x, begin.y);
-      canvas.lineTo(end.x, end.y);
-      canvas.lineWidth = 4;
-      canvas.strokeStyle = color;
-      canvas.stroke();
-    }
-
-    navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
-      video.srcObject = stream;
-      video.play();
-      requestAnimationFrame(tick);
-    });
-
-    function tick() {
-      loadingMessage.innerText = "⌛ Loading video..."
-      if (video.readyState === video.HAVE_ENOUGH_DATA) {
-        loadingMessage.hidden = true;
-        canvasElement.hidden = false;
-        outputContainer.hidden = false;
-
-        canvasElement.height = video.videoHeight;
-        canvasElement.width = video.videoWidth;
-        canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-        var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
-        var code = jsQR(imageData.data, imageData.width, imageData.height);
-        if (code) {
-          drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
-          drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
-          drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
-          drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
-          outputMessage.hidden = true;
-          outputData.parentElement.hidden = false;
-          outputData.innerText = code.data;
-        } else {
-          outputMessage.hidden = false;
-          outputData.parentElement.hidden = true;
-        }
-      }
-      requestAnimationFrame(tick);
-    }
-  </script>
 </body>
 
 <script>

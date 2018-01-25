@@ -25,7 +25,6 @@ module.exports = app => {
       if (err) {
         res.json(err);
       } else {
-        console.log(req.session.id);
         res.render('issukis/index', { issukiai });
       }
     });
